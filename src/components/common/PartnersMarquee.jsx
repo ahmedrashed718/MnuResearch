@@ -9,6 +9,7 @@ import Container from '../ui/Container';
 export default function PartnersMarquee() {
   const { language, t } = useTranslation();
   const [isPaused, setIsPaused] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const isAr = language === 'ar';
 
   // Duplicate items 4 times to guarantee a 100% seamless, unbroken infinite loop
@@ -50,19 +51,40 @@ export default function PartnersMarquee() {
 
       {/* Infinite Marquee Wrapper */}
       <div 
-        className="relative w-full overflow-hidden py-3"
+        className="relative w-full overflow-hidden py-3 select-none"
         onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        onMouseLeave={() => {
+          if (!isDragging) setIsPaused(false);
+        }}
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => {
+          if (!isDragging) setIsPaused(false);
+        }}
       >
         {/* Left & Right Gradient Shadows for seamless fade effect */}
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#f4f8f5] to-transparent sm:w-28 lg:w-36" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#f4f8f5] to-transparent sm:w-28 lg:w-36" />
 
         <motion.div
-          className="flex w-max gap-6 px-4 sm:px-6 lg:px-8"
-          animate={{
-            x: isAr ? ['0%', '50%'] : ['0%', '-50%'],
+          drag="x"
+          dragConstraints={{ left: -1200, right: 1200 }}
+          dragElastic={0.1}
+          onDragStart={() => {
+            setIsDragging(true);
+            setIsPaused(true);
           }}
+          onDragEnd={() => {
+            setIsDragging(false);
+            setIsPaused(false);
+          }}
+          className="flex w-max gap-6 px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing"
+          animate={
+            isDragging
+              ? {}
+              : {
+                  x: isAr ? ['0%', '50%'] : ['0%', '-50%'],
+                }
+          }
           transition={{
             x: {
               repeat: Infinity,
@@ -72,7 +94,7 @@ export default function PartnersMarquee() {
             },
           }}
           style={{
-            animationPlayState: isPaused ? 'paused' : 'running',
+            animationPlayState: isPaused || isDragging ? 'paused' : 'running',
             willChange: 'transform',
           }}
         >
