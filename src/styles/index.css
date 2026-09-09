@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-app: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-app);
+    color: #0f172a;
+    background: #f8fafc;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* English Language Typography */
+  html[lang='en'] {
+    --font-app: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-app);
+  }
+
+  /* Arabic Language Typography */
+  html[lang='ar'],
+  [dir='rtl'] {
+    --font-app: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-app);
+  }
+
+  body {
+    @apply m-0 min-w-80 bg-slate-50 text-slate-900 antialiased;
+    font-family: var(--font-app);
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-family: var(--font-app);
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2;
+  }
+}
+
+@layer utilities {
+  .hero-grid {
+    background-image:
+      linear-gradient(rgb(3 75 54 / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(3 75 54 / 0.045) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(to bottom, black, transparent 90%);
+  }
+}
