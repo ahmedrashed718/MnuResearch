@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Globe2, Handshake } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { dummyPartners } from '../../data/partnersData';
@@ -8,8 +7,8 @@ import Container from '../ui/Container';
 
 export default function PartnersMarquee() {
   const { language, t } = useTranslation();
-  const [isPaused, setIsPaused] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
+  const scrollRef = useRef(null);
+  const [isInteracting, setIsInteracting] = useState(false);
   const isAr = language === 'ar';
 
   // Duplicate items 4 times to guarantee a 100% seamless, unbroken infinite loop
@@ -19,6 +18,34 @@ export default function PartnersMarquee() {
     ...dummyPartners,
     ...dummyPartners,
   ];
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    let animId;
+    const speed = 0.75; // Ultra-smooth 60-120fps auto scroll speed
+
+    const step = () => {
+      if (!isInteracting && container) {
+        if (isAr) {
+          container.scrollLeft -= speed;
+          if (Math.abs(container.scrollLeft) >= container.scrollWidth / 2) {
+            container.scrollLeft = 0;
+          }
+        } else {
+          container.scrollLeft += speed;
+          if (container.scrollLeft >= container.scrollWidth / 2) {
+            container.scrollLeft = 0;
+          }
+        }
+      }
+      animId = requestAnimationFrame(step);
+    };
+
+    animId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animId);
+  }, [isInteracting, isAr]);
 
   return (
     <section className="relative overflow-hidden bg-[#f4f8f5] py-16 lg:py-20 border-t border-brand-900/5">
@@ -49,54 +76,22 @@ export default function PartnersMarquee() {
         </div>
       </Container>
 
-      {/* Infinite Marquee Wrapper */}
-      <div 
-        className="relative w-full overflow-hidden py-3 select-none"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => {
-          if (!isDragging) setIsPaused(false);
-        }}
-        onTouchStart={() => setIsPaused(true)}
-        onTouchEnd={() => {
-          if (!isDragging) setIsPaused(false);
-        }}
-      >
+      {/* 100% Butter-Smooth Hardware-Accelerated Touch Marquee */}
+      <div className="relative w-full overflow-hidden py-3">
         {/* Left & Right Gradient Shadows for seamless fade effect */}
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#f4f8f5] to-transparent sm:w-28 lg:w-36" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#f4f8f5] to-transparent sm:w-28 lg:w-36" />
 
-        <motion.div
-          drag="x"
-          dragConstraints={{ left: -1200, right: 1200 }}
-          dragElastic={0.1}
-          onDragStart={() => {
-            setIsDragging(true);
-            setIsPaused(true);
-          }}
-          onDragEnd={() => {
-            setIsDragging(false);
-            setIsPaused(false);
-          }}
-          className="flex w-max gap-6 px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing"
-          animate={
-            isDragging
-              ? {}
-              : {
-                  x: isAr ? ['0%', '50%'] : ['0%', '-50%'],
-                }
-          }
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: 'loop',
-              duration: 180,
-              ease: 'linear',
-            },
-          }}
+        <div
+          ref={scrollRef}
+          className="flex w-full overflow-x-auto scrollbar-none gap-6 px-4 sm:px-6 lg:px-8 touch-pan-x py-2 select-none"
           style={{
-            animationPlayState: isPaused || isDragging ? 'paused' : 'running',
-            willChange: 'transform',
+            WebkitOverflowScrolling: 'touch',
           }}
+          onMouseEnter={() => setIsInteracting(true)}
+          onMouseLeave={() => setIsInteracting(false)}
+          onTouchStart={() => setIsInteracting(true)}
+          onTouchEnd={() => setIsInteracting(false)}
         >
           {marqueeItems.map((partner, idx) => {
             const name = isAr ? partner.nameAr : partner.nameEn;
@@ -105,7 +100,7 @@ export default function PartnersMarquee() {
             return (
               <div
                 key={`${partner.id}-${idx}`}
-                className="group relative flex w-[280px] shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-gold-500/50 hover:shadow-xl hover:shadow-brand-900/10 sm:w-[300px]"
+                className="group relative flex w-[260px] sm:w-[300px] shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-gold-500/50 hover:shadow-xl hover:shadow-brand-900/10"
               >
                 {/* Top Subtle Gradient Accent Line on Hover */}
                 <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-700 via-gold-500 to-brand-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -141,7 +136,7 @@ export default function PartnersMarquee() {
               </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

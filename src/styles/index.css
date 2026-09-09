@@ -54,4 +54,12 @@
     background-size: 44px 44px;
     mask-image: linear-gradient(to bottom, black, transparent 90%);
   }
+
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
