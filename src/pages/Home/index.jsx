@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Calendar, Lightbulb, MapPin, Microscope, Sparkles } from 'lucide-react';
+import { ArrowRight, BookOpen, Brain, Building2, Calendar, Lightbulb, MapPin, Microscope, Sparkles, Stethoscope, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.jpeg';
-import mnuCutoutVector from 'C:/Users/Admin/.gemini/antigravity-ide/brain/063f25c3-7a53-47d6-ac35-9380c4ca420c/mnu_cutout_vector_lineart_1788944273620.png';
+import mnuLogo from '../../assets/images/logo.jpeg';
 import SpeakersMarquee from '../../components/common/SpeakersMarquee';
 import PartnersMarquee from '../../components/common/PartnersMarquee';
 import Container from '../../components/ui/Container';
@@ -29,6 +29,8 @@ const principles = [
   },
 ];
 
+import { researchTopicsData as topicsData } from '../../data/topicsData';
+
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0 },
@@ -36,6 +38,7 @@ const fadeUp = {
 
 function Home() {
   const { language, t } = useTranslation();
+  const isAr = language === 'ar';
 
   return (
     <>
@@ -43,9 +46,9 @@ function Home() {
         {/* Background Canvas */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <img
-            src={mnuCutoutVector}
+            src={mnuLogo}
             alt=""
-            className="absolute inset-0 size-full object-contain object-center opacity-30 mix-blend-multiply filter contrast-125 brightness-105"
+            className="absolute inset-0 size-full object-contain object-center opacity-[0.07] mix-blend-multiply filter contrast-125 brightness-105"
           />
           <div className="absolute -left-32 top-10 size-[420px] rounded-full bg-brand-100/60 blur-3xl" />
           <div className="absolute -right-32 bottom-0 size-[480px] rounded-full bg-gold-100/70 blur-3xl" />
@@ -237,6 +240,96 @@ function Home() {
               />
             </motion.div>
           </motion.div>
+        </Container>
+      </section>
+
+      {/* --- MAIN RESEARCH TOPICS / CONFERENCES TRACKS SECTION --- */}
+      <section className="py-16 sm:py-24 bg-white border-y border-slate-200/60 relative overflow-hidden">
+        <div className="absolute top-0 right-0 size-96 rounded-full bg-brand-50/60 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 size-96 rounded-full bg-amber-50/60 blur-3xl pointer-events-none" />
+
+        <Container className="relative z-10">
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-brand-700/20 bg-brand-50 px-4 py-1.5 text-xs font-black text-brand-800 shadow-xs">
+              <BookOpen className="size-3.5 text-brand-700" />
+              <span>{isAr ? 'المجالات والمحاور الرئيسية' : 'Main Research Tracks'}</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-brand-950 tracking-tight">
+              {isAr ? 'المحاور العلمية والبحثية للمؤتمر' : 'Key Scientific Research Tracks'}
+            </h2>
+
+            <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+              {isAr
+                ? 'يغطي المؤتمر الطلابي الأول لجامعة المنوفية الأهلية مجالات علمية وبحثية متكاملة تلبي تطلعات التنمية والابتكار.'
+                : 'Explore the key multidisciplinary research tracks featured in MNU 1st Student Research & Innovation Conference.'}
+            </p>
+          </div>
+
+          {/* Topics Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {topicsData.map((topic, index) => {
+              const Icon = topic.icon;
+
+              return (
+                <motion.div
+                  key={topic.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-[#fbfdfc] p-6 shadow-md shadow-slate-200/50 transition-all duration-300 hover:-translate-y-2 hover:border-brand-700/40 hover:bg-white hover:shadow-xl hover:shadow-brand-900/10"
+                >
+                  <div className="space-y-4">
+                    {/* Top Icon & Badge Row */}
+                    <div className="flex items-center justify-between">
+                      <div className={`grid size-13 place-items-center rounded-2xl ${topic.iconBg} shadow-lg transition-transform duration-300 group-hover:scale-110`}>
+                        <Icon className="size-6" />
+                      </div>
+                      <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-black text-slate-700 border border-slate-200/60">
+                        {isAr ? topic.tagAr : topic.tagEn}
+                      </span>
+                    </div>
+
+                    {/* Topic Title */}
+                    <h3 className="text-lg font-black text-brand-950 group-hover:text-brand-700 transition-colors leading-snug">
+                      {isAr ? topic.titleAr : topic.titleEn}
+                    </h3>
+
+                    {/* Topic Description */}
+                    <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                      {isAr ? topic.descAr : topic.descEn}
+                    </p>
+                  </div>
+
+                  {/* Card Footer Link */}
+                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <Link
+                      to="/research-topics"
+                      className="inline-flex items-center gap-1.5 text-xs font-black text-brand-700 group-hover:text-brand-900 transition-colors"
+                    >
+                      <span>{isAr ? 'استكشف المجال' : 'Explore Track'}</span>
+                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+                    </Link>
+                    <span className="size-1.5 rounded-full bg-amber-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Bottom Callout Banner */}
+          <div className="mt-12 text-center">
+            <Link
+              to="/research-topics"
+              className="inline-flex items-center gap-2.5 rounded-full bg-brand-950 px-8 py-3.5 text-xs font-extrabold text-white shadow-xl hover:bg-brand-900 transition-all hover:scale-[1.02]"
+            >
+              <BookOpen className="size-4 text-amber-400" />
+              <span>{isAr ? 'عرض كافة تفاصيل ومحاور الأبحاث' : 'View All Conference Research Topics'}</span>
+              <ArrowRight className="size-4 rtl:rotate-180" />
+            </Link>
+          </div>
         </Container>
       </section>
 
