@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Brain, Building2, Calendar, Lightbulb, MapPin, Microscope, Sparkles, Stethoscope, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.jpeg';
-import mnuLogo from '../../assets/images/logo.jpeg';
+import mnuColoredBuildingNoBg from 'C:/Users/Admin/.gemini/antigravity-ide/brain/546ca4e9-185c-4d79-a5f2-ed71a3220f5c/colored_building_no_bg_1789027515511.png';
 import SpeakersMarquee from '../../components/common/SpeakersMarquee';
 import PartnersMarquee from '../../components/common/PartnersMarquee';
 import Container from '../../components/ui/Container';
@@ -46,9 +46,9 @@ function Home() {
         {/* Background Canvas */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <img
-            src={mnuLogo}
+            src={mnuColoredBuildingNoBg}
             alt=""
-            className="absolute inset-0 size-full object-contain object-center opacity-[0.07] mix-blend-multiply filter contrast-125 brightness-105"
+            className="absolute inset-x-0 bottom-0 size-full w-full object-contain object-bottom opacity-25 mix-blend-multiply filter contrast-110 brightness-105"
           />
           <div className="absolute -left-32 top-10 size-[420px] rounded-full bg-brand-100/60 blur-3xl" />
           <div className="absolute -right-32 bottom-0 size-[480px] rounded-full bg-gold-100/70 blur-3xl" />
