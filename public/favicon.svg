@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Outer Gold Ring -->
+  <circle cx="256" cy="256" r="250" fill="#ffffff" stroke="#c99724" stroke-width="12" />
+  <circle cx="256" cy="256" r="236" fill="none" stroke="#022c20" stroke-width="8" />
+  
+  <!-- Outer Deep Green Ring -->
+  <circle cx="256" cy="256" r="224" fill="#022c20" />
+  
+  <!-- Inner Gold Border -->
+  <circle cx="256" cy="256" r="165" fill="#ffffff" stroke="#c99724" stroke-width="6" />
+
+  <!-- Arabic University Text Arc Path Top -->
+  <path id="textArcTop" d="M 75 256 A 181 181 0 1 1 437 256" fill="none" />
+  <!-- English University Text Arc Path Bottom -->
+  <path id="textArcBottom" d="M 437 256 A 181 181 0 1 1 75 256" fill="none" />
+
+  <text fill="#ffffff" font-size="28" font-weight="900" font-family="Cairo, sans-serif" text-anchor="middle">
+    <textPath href="#textArcTop" startOffset="50%">جامعة المنوفية الأهلية</textPath>
+  </text>
+  
+  <text fill="#d4af37" font-size="18" font-weight="800" font-family="Outfit, sans-serif" text-anchor="middle">
+    <textPath href="#textArcBottom" startOffset="50%">MENOUFIA NATIONAL UNIVERSITY</textPath>
+  </text>
+
+  <!-- Gold Decorative Stars -->
+  <polygon points="90,256 94,244 106,244 96,236 100,224 90,232 80,224 84,236 74,244 86,244" fill="#c99724" />
+  <polygon points="422,256 426,244 438,244 428,236 432,224 422,232 412,224 416,236 406,244 418,244" fill="#c99724" />
+
+  <!-- Central Emblem Symbol: Golden Falcon & Graduation Cap & Book -->
+  <g transform="translate(156, 136) scale(0.8)">
+    <!-- Open Book Base -->
+    <path d="M 25 180 Q 125 150 225 180 Q 325 150 425 180 L 425 210 Q 325 180 225 210 Q 125 180 25 210 Z" fill="#022c20" stroke="#c99724" stroke-width="4" />
+    <path d="M 225 180 L 225 210" stroke="#c99724" stroke-width="4" />
+
+    <!-- Golden Falcon Wings spread -->
+    <path d="M 225 140 Q 140 60 40 100 Q 110 130 160 145 Q 110 170 80 200 Q 150 170 225 155 Q 300 170 370 200 Q 340 170 290 145 Q 340 130 410 100 Q 310 60 225 140 Z" fill="#c99724" stroke="#704b10" stroke-width="3" />
+
+    <!-- Falcon Head -->
+    <path d="M 225 100 Q 210 80 225 60 Q 240 75 245 90 Z" fill="#c99724" />
+    <circle cx="220" cy="75" r="3" fill="#022c20" />
+
+    <!-- Graduation Cap on top -->
+    <polygon points="225,15 300,45 225,75 150,45" fill="#022c20" stroke="#c99724" stroke-width="4" />
+    <rect x="205" y="65" width="40" height="20" rx="4" fill="#022c20" stroke="#c99724" stroke-width="2" />
+    <!-- Tassel -->
+    <path d="M 225 45 L 305 70 L 305 95" fill="none" stroke="#c99724" stroke-width="3" />
+    <circle cx="305" cy="98" r="5" fill="#c99724" />
+  </g>
+</svg>
