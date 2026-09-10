@@ -83,9 +83,9 @@ function Home() {
             </div>
 
             {/* Main Mobile Headline */}
-            <h1 className="mt-5 max-w-sm text-3xl font-extrabold leading-snug tracking-tight text-brand-950">
-              {t('home.titlePrefix')}{' '}
-              <span className="relative inline-block text-brand-700">
+            <h1 className="mt-5 max-w-sm text-2xl sm:text-3xl font-extrabold tracking-tight text-brand-950">
+              <span className="block leading-snug">{t('home.titlePrefix')}</span>
+              <span className="relative inline-block mt-1 text-brand-700 leading-snug">
                 {t('home.titleHighlight')}
                 <svg className="absolute -bottom-1.5 left-0 h-2.5 w-full text-gold-400" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true">
                   <path d="M2 9C70 2 206 2 298 8" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
@@ -165,10 +165,10 @@ function Home() {
             <motion.h1
               variants={fadeUp}
               transition={{ duration: 0.6 }}
-              className="mt-7 max-w-3xl text-6xl font-extrabold leading-[1.12] tracking-[-0.035em] text-brand-950 rtl:tracking-normal lg:text-7xl"
+              className="mt-7 max-w-3xl text-4xl font-extrabold tracking-[-0.03em] text-brand-950 rtl:tracking-normal sm:text-5xl lg:text-6xl"
             >
-              {t('home.titlePrefix')}{' '}
-              <span className="relative inline-block text-brand-700">
+              <span className="block leading-snug">{t('home.titlePrefix')}</span>
+              <span className="relative inline-block mt-1 sm:mt-1.5 text-brand-700 leading-snug">
                 {t('home.titleHighlight')}
                 <svg className="absolute -bottom-2 left-0 h-3 w-full text-gold-400" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true">
                   <path d="M2 9C70 2 206 2 298 8" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />

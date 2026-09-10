@@ -91,11 +91,16 @@ function Header() {
             <img src={logo} alt="" className="size-full object-cover" />
           </span>
           <span className="min-w-0 flex flex-col justify-center">
-            <span className="block truncate text-[13px] sm:text-base font-black tracking-tight text-brand-900 leading-tight">
+            <span className="block text-[12.5px] sm:text-base font-black tracking-tight text-brand-900 leading-tight">
               {t('universityName')}
             </span>
-            <span className="block text-[10px] sm:text-xs font-extrabold text-amber-600 leading-snug truncate max-w-[180px] xs:max-w-[230px] sm:max-w-none">
-              {t('appName')}
+            <span className="block text-[10.5px] sm:text-xs font-extrabold text-amber-600 leading-tight tracking-tight">
+              <span className="sm:hidden">
+                {language === 'ar' ? 'المؤتمر الطلابي للبحث العلمي والابتكار' : t('appName')}
+              </span>
+              <span className="hidden sm:inline">
+                {t('appName')}
+              </span>
             </span>
           </span>
         </NavLink>
