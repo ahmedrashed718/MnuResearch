@@ -34,6 +34,7 @@ const navIcons = {
   '/workshops': Sparkles,
   '/partners': Award,
   '/gallery': ImageIcon,
+  '/guidelines': FileText,
   '/contact': Mail,
 };
 

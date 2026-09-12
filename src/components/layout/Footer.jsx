@@ -144,11 +144,11 @@ function Footer() {
                   <ArrowUpRight className="size-3.5 rtl:-rotate-90" />
                 </Link>
                 <Link
-                  to="/submit-abstract"
+                  to="/guidelines"
                   className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-white/10 px-5 py-2.5 text-xs font-bold text-amber-100 backdrop-blur-md transition-all hover:bg-white/20 hover:text-white"
                 >
                   <FileText className="size-3.5 text-amber-400" />
-                  <span>{isAr ? 'تقديم الملخصات' : 'Submit Abstract'}</span>
+                  <span>{isAr ? 'الارشادات' : 'Guidelines'}</span>
                 </Link>
               </div>
             </div>
