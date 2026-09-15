@@ -1,6 +1,6 @@
 export const translations = {
   en: {
-    appName: '1st Student Research & Innovation Conference',
+    appName: '1st International Student Scientific Conference "Future Scientists"',
     universityName: 'Menoufia National University',
     nav: {
       home: 'Home',
@@ -37,10 +37,10 @@ export const translations = {
       cancel: 'Cancel',
     },
     home: {
-      titlePrefix: '1st Student Research',
-      titleHighlight: '& Innovation',
-      titleSuffix: 'Conference',
-      introduction: 'A university platform where student research, creative thinking, and meaningful innovation come together.',
+      titlePrefix: '1st International Student',
+      titleHighlight: 'Scientific Conference',
+      titleSuffix: '"Future Scientists"',
+      introduction: 'Organized by the Student Research Unit at Menoufia National University on August 1, 2026, to foster research excellence, student innovation, and scientific awards.',
       inspire: 'Inspire',
       innovate: 'Innovate',
       impact: 'Impact',
@@ -83,7 +83,7 @@ export const translations = {
     },
   },
   ar: {
-    appName: 'المؤتمر الطلابي الأول للبحث العلمي والابتكار',
+    appName: 'المؤتمر الطلابي العلمي الأول الدولي "علماء المستقبل"',
     universityName: 'جامعة المنوفية الأهلية',
     nav: {
       home: 'الرئيسية',
@@ -120,10 +120,10 @@ export const translations = {
       cancel: 'إلغاء',
     },
     home: {
-      titlePrefix: 'المؤتمر الطلابي الأول',
-      titleHighlight: 'للبحث العلمي والابتكار',
+      titlePrefix: 'المؤتمر الطلابي العلمي الأول الدولي',
+      titleHighlight: '"علماء المستقبل"',
       titleSuffix: '',
-      introduction: 'منصة جامعية تجمع أبحاث الطلاب والتفكير الإبداعي والابتكار الهادف في مكان واحد.',
+      introduction: 'لقاء علمي تنظمه وحدة الأبحاث الطلابية بجامعة المنوفية الأهلية في 1 أغسطس 2026 حضورياً بمقر الجامعة لتشجيع الباحثين وعرض الابتكارات والأعمال العلمية المتميزة.',
       inspire: 'إلهام',
       innovate: 'ابتكار',
       impact: 'تأثير',

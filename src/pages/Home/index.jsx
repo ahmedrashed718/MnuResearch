@@ -1,5 +1,26 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, Brain, Building2, Calendar, Lightbulb, MapPin, Microscope, Sparkles, Stethoscope, TrendingUp } from 'lucide-react';
+import {
+  ArrowRight,
+  Award,
+  BookOpen,
+  Brain,
+  Building2,
+  Calendar,
+  CheckCircle2,
+  Clock,
+  ExternalLink,
+  Flame,
+  Lightbulb,
+  MapPin,
+  Medal,
+  Microscope,
+  Presentation,
+  ShieldCheck,
+  Sparkles,
+  Stethoscope,
+  TrendingUp,
+  Trophy
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.jpeg';
 import mnuColoredBuildingNoBg from 'C:/Users/Admin/.gemini/antigravity-ide/brain/546ca4e9-185c-4d79-a5f2-ed71a3220f5c/colored_building_no_bg_1789027515511.png';
@@ -103,11 +124,11 @@ function Home() {
             <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs font-bold text-brand-900">
               <div className="flex items-center gap-1.5 rounded-full border border-gold-500/20 bg-white/90 px-4 py-2 shadow-sm backdrop-blur">
                 <Calendar className="size-3.5 text-gold-600" />
-                <span>{language === 'ar' ? '15 - 16 مايو 2026' : 'May 15 - 16, 2026'}</span>
+                <span>{language === 'ar' ? '1 أغسطس 2026' : 'August 1, 2026'}</span>
               </div>
               <div className="flex items-center gap-1.5 rounded-full border border-gold-500/20 bg-white/90 px-4 py-2 shadow-sm backdrop-blur">
                 <MapPin className="size-3.5 text-gold-600" />
-                <span>{language === 'ar' ? 'جامعة المنوفية الأهلية' : 'MNU Campus'}</span>
+                <span>{language === 'ar' ? 'حضورياً بمقر الجامعة' : 'In-Person at MNU'}</span>
               </div>
             </div>
 
@@ -185,7 +206,19 @@ function Home() {
               {t('home.introduction')}
             </motion.p>
 
-            <motion.div variants={fadeUp} transition={{ duration: 0.6 }} className="mt-9 flex flex-row gap-3">
+            {/* Desktop Date & Venue Chips */}
+            <motion.div variants={fadeUp} transition={{ duration: 0.6 }} className="mt-5 flex items-center gap-3 text-xs font-bold text-brand-900">
+              <div className="flex items-center gap-2 rounded-full border border-gold-500/25 bg-white/90 px-4 py-2 shadow-xs backdrop-blur">
+                <Calendar className="size-4 text-gold-600" />
+                <span>{language === 'ar' ? '1 أغسطس 2026' : 'August 1, 2026'}</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-full border border-gold-500/25 bg-white/90 px-4 py-2 shadow-xs backdrop-blur">
+                <MapPin className="size-4 text-gold-600" />
+                <span>{language === 'ar' ? 'حضورياً بمقر جامعة المنوفية الأهلية' : 'In-Person at MNU Campus'}</span>
+              </div>
+            </motion.div>
+
+            <motion.div variants={fadeUp} transition={{ duration: 0.6 }} className="mt-7 flex flex-row gap-3">
               <Link
                 to="/registration"
                 className="group inline-flex h-[52px] items-center justify-center gap-3 rounded-full bg-brand-700 px-7 text-sm font-bold text-white shadow-xl shadow-brand-900/20 transition-all hover:-translate-y-1 hover:bg-brand-800 hover:shadow-2xl"
@@ -240,6 +273,129 @@ function Home() {
               />
             </motion.div>
           </motion.div>
+        </Container>
+      </section>
+
+      {/* --- AWARDS & IMPORTANT DEADLINES HIGHLIGHT SECTION --- */}
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-[#f8fbf9] to-white border-t border-slate-200/60">
+        <Container>
+          {/* Deadlines Bar */}
+          <div className="rounded-3xl border-2 border-amber-400/40 bg-[#022c20] p-6 sm:p-8 text-white shadow-xl relative overflow-hidden mb-12">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-5 mb-5">
+              <div>
+                <span className="inline-flex items-center gap-1.5 text-xs font-black text-amber-400 uppercase tracking-wider mb-1">
+                  <Calendar className="size-4" />
+                  <span>{isAr ? 'المواعيد الرسمية المعتمدة' : 'Official Key Deadlines'}</span>
+                </span>
+                <h2 className="text-xl sm:text-2xl font-black text-white">
+                  {isAr ? 'مواعيد قبول وإرسال الأبحاث العلمية' : 'Paper Submission Key Milestones'}
+                </h2>
+              </div>
+              <a
+                href="mailto:quality@mnu.edu.eg"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-brand-950 font-black text-xs shadow-md transition-all self-start md:self-auto cursor-pointer"
+              >
+                <span>quality@mnu.edu.eg</span>
+              </a>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="rounded-2xl bg-white/10 p-4 border border-white/10">
+                <span className="text-[10px] font-bold text-amber-300 block">{isAr ? 'المرحلة الأولى: ملخصات الأبحاث' : 'Phase 1: Abstracts'}</span>
+                <span className="text-xl font-black text-white mt-1 block">1 / 4 / 2026</span>
+                <p className="text-[11px] text-slate-300 mt-0.5">{isAr ? 'آخر موعد لاستلام الملخصات' : 'Abstract submission deadline'}</p>
+              </div>
+
+              <div className="rounded-2xl bg-white/10 p-4 border border-white/10">
+                <span className="text-[10px] font-bold text-emerald-300 block">{isAr ? 'المرحلة الثانية: الأبحاث كاملة' : 'Phase 2: Full Papers'}</span>
+                <span className="text-xl font-black text-white mt-1 block">15 / 4 / 2026</span>
+                <p className="text-[11px] text-slate-300 mt-0.5">{isAr ? 'آخر موعد لإرسال الأبحاث كاملة' : 'Full manuscript deadline'}</p>
+              </div>
+
+              <div className="rounded-2xl bg-amber-500/20 p-4 border border-amber-400/30">
+                <span className="text-[10px] font-bold text-amber-300 block">{isAr ? 'يوم انعقاد المؤتمر' : 'Conference Day'}</span>
+                <span className="text-xl font-black text-amber-400 mt-1 block">1 / 8 / 2026</span>
+                <p className="text-[11px] text-amber-100 mt-0.5">{isAr ? 'حضورياً بمقر جامعة المنوفية الأهلية' : 'In-Person at MNU Campus'}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Awards Showcase Cards */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 text-amber-800 px-3.5 py-1 text-xs font-black mb-2">
+                <Trophy className="size-3.5" />
+                <span>{isAr ? 'التكريم والجوائز المالية' : 'Awards & Honors'}</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-brand-950">
+                {isAr ? 'جوائز البحوث والأعمال المتميزة' : 'Conference Awards & Cash Prizes'}
+              </h2>
+            </div>
+
+            <Link
+              to="/about"
+              className="inline-flex items-center gap-2 text-xs font-black text-brand-700 hover:text-brand-900 transition-colors"
+            >
+              <span>{isAr ? 'تفاصيل فكرة وأهداف وجوائز المؤتمر' : 'Explore Concept, Goals & Awards'}</span>
+              <ArrowRight className="size-3.5 rtl:rotate-180" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {/* Best Paper */}
+            <div className="rounded-3xl border border-slate-200/90 bg-white p-6 shadow-sm hover:shadow-md transition-all">
+              <div className="grid size-11 place-items-center rounded-2xl bg-amber-100 text-amber-700 mb-4">
+                <Medal className="size-6" />
+              </div>
+              <span className="text-[11px] font-black uppercase text-slate-400">{isAr ? '3 جوائز أبحاث' : '3 Research Awards'}</span>
+              <h3 className="text-lg font-black text-brand-950 mt-1 mb-2">
+                {isAr ? 'جوائز أفضل بحث' : 'Best Paper Awards'}
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium mb-4">
+                {isAr ? 'مركز أول (1200 ج) • مركز ثاني (1000 ج) • مركز ثالث (800 ج).' : '1st (1200 EGP) • 2nd (1000 EGP) • 3rd (800 EGP).'}
+              </p>
+              <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-bold text-amber-700">
+                <CheckCircle2 className="size-4" />
+                <span>{isAr ? 'شهادة مشاركة للجميع' : 'Certificates for all'}</span>
+              </div>
+            </div>
+
+            {/* Best Presentation */}
+            <div className="rounded-3xl border border-slate-200/90 bg-white p-6 shadow-sm hover:shadow-md transition-all">
+              <div className="grid size-11 place-items-center rounded-2xl bg-blue-100 text-blue-700 mb-4">
+                <Presentation className="size-6" />
+              </div>
+              <span className="text-[11px] font-black uppercase text-slate-400">{isAr ? '3 جوائز إلقاء' : '3 Presentation Awards'}</span>
+              <h3 className="text-lg font-black text-brand-950 mt-1 mb-2">
+                {isAr ? 'أفضل عرض تقديمي / بوستر' : 'Best Presentation / Poster'}
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium mb-4">
+                {isAr ? 'أول (1200 ج) • ثاني (1000 ج) • ثالث (800 ج) لتقييم العروض والملصقات.' : '1st (1200 EGP) • 2nd (1000 EGP) • 3rd (800 EGP) for oral & posters.'}
+              </p>
+              <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-bold text-blue-700">
+                <CheckCircle2 className="size-4" />
+                <span>{isAr ? 'شهادة مشاركة للجميع' : 'Certificates for all'}</span>
+              </div>
+            </div>
+
+            {/* Best Innovation */}
+            <div className="rounded-3xl border border-slate-200/90 bg-white p-6 shadow-sm hover:shadow-md transition-all">
+              <div className="grid size-11 place-items-center rounded-2xl bg-emerald-100 text-emerald-700 mb-4">
+                <Flame className="size-6" />
+              </div>
+              <span className="text-[11px] font-black uppercase text-slate-400">{isAr ? 'جائزة واحدة كبرى' : '1 Major Award'}</span>
+              <h3 className="text-lg font-black text-brand-950 mt-1 mb-2">
+                {isAr ? 'أفضل الابتكارات العلمية' : 'Best Scientific Innovation'}
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium mb-4">
+                {isAr ? '1200 جنيهاً (يشترط تقديم نموذج أولي للابتكار Prototype).' : '1200 EGP (Functional Prototype is mandatory).'}
+              </p>
+              <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+                <CheckCircle2 className="size-4" />
+                <span>{isAr ? 'معرض علمي لأعمال الطلاب' : 'Exhibition Prototype Display'}</span>
+              </div>
+            </div>
+          </div>
         </Container>
       </section>
 

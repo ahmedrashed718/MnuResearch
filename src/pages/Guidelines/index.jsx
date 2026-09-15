@@ -10,7 +10,13 @@ import {
   BarChart3,
   Search,
   Type,
-  Sparkles
+  Sparkles,
+  Calendar,
+  Mail,
+  ExternalLink,
+  Users,
+  ShieldCheck,
+  Send
 } from 'lucide-react';
 import Container from '../../components/ui/Container';
 import PageHeroBanner from '../../components/common/PageHeroBanner';
@@ -137,13 +143,193 @@ export default function Guidelines() {
 
       <Container className="mt-6 sm:mt-10 px-4 sm:px-6 lg:px-8 max-w-6xl space-y-10">
 
+        {/* --- SECTION: شروط قبول الأبحاث المشاركة في المؤتمر --- */}
+        <section className="rounded-3xl border-2 border-emerald-500/20 bg-gradient-to-br from-white via-emerald-50/20 to-white p-6 sm:p-8 lg:p-10 shadow-sm relative overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 text-xs font-black text-emerald-700 uppercase tracking-wider">
+                <ShieldCheck className="size-4" />
+                <span>{isAr ? 'خامساً: ضوابط المشاركة' : 'Submission Requirements'}</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black text-brand-950">
+                {isAr ? 'شروط قبول الأبحاث المشاركة في المؤتمر' : 'Research Submission Terms & Conditions'}
+              </h2>
+            </div>
+
+            <a
+              href="https://forms.office.com/r/Cnbi3kRcdD"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md shadow-emerald-700/20 transition-all self-start sm:self-auto cursor-pointer"
+            >
+              <span>{isAr ? 'استمارة التسجيل الإلكترونية' : 'Online Registration Form'}</span>
+              <ExternalLink className="size-3.5" />
+            </a>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            {/* Condition 1 */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs flex items-start gap-3.5">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 font-black text-xs">
+                1
+              </span>
+              <div>
+                <h4 className="text-xs font-black text-brand-950 mb-1">{isAr ? 'فردي أو جماعي (فريق حتى 3 طلاب)' : 'Individual or Team'}</h4>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  {isAr
+                    ? 'يجوز أن يكون البحث فردياً أو جماعياً على ألا يزيد الفريق البحثي عن (3) طلاب.'
+                    : 'Research may be individual or collaborative, with team size strictly limited to at most 3 students.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Condition 2 */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs flex items-start gap-3.5">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 font-black text-xs">
+                2
+              </span>
+              <div>
+                <h4 className="text-xs font-black text-brand-950 mb-1">{isAr ? 'قيد الطالب بالجامعة' : 'University Enrollment'}</h4>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  {isAr
+                    ? 'يشترط أن يكون الطالب مقيداً بجامعة المنوفية الأهلية خلال العام الجامعي.'
+                    : 'The student must be officially enrolled at Menoufia National University.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Condition 3 */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs flex items-start gap-3.5">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 font-black text-xs">
+                3
+              </span>
+              <div>
+                <h4 className="text-xs font-black text-brand-950 mb-1">{isAr ? 'ملء استمارة المشاركة إلكترونياً' : 'Online Form Submission'}</h4>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  {isAr
+                    ? 'أن يملأ الطالب استمارة مشاركته في المؤتمر إلكترونياً عبر الرابط المعتمد.'
+                    : 'Students must submit their official conference participation form via the designated link.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Condition 4 */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs flex items-start gap-3.5 md:col-span-2">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 font-black text-xs">
+                4
+              </span>
+              <div>
+                <h4 className="text-xs font-black text-brand-950 mb-1">{isAr ? 'أصالة البحث وعدم النشر المسبق' : 'Originality & Non-Duplication'}</h4>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  {isAr
+                    ? 'أن يقدم الطالب فكرة مبتكرة وألا يكون البحث منقولاً أو مقتبساً من بحث آخر، ويندرج تحت محاور المؤتمر ولا يكون قد نُشر في مؤتمر آخر.'
+                    : 'Students must provide an innovative, original concept not plagiarized from other works, aligned with conference tracks, and unpublished.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Condition 5 */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs flex items-start gap-3.5">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 font-black text-xs">
+                5
+              </span>
+              <div>
+                <h4 className="text-xs font-black text-brand-950 mb-1">{isAr ? 'لغة الأبحاث: الإنجليزية' : 'Language: English'}</h4>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  {isAr
+                    ? 'تُقدم جميع الأبحاث والملخصات باللغة الإنجليزية حصراً.'
+                    : 'All manuscripts and abstracts must be presented exclusively in English.'}
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- SECTION: مواعيد قبول الأبحاث المشاركة في المؤتمر --- */}
+        <section className="rounded-3xl border-2 border-amber-400/30 bg-gradient-to-br from-amber-50/50 via-white to-amber-50/20 p-6 sm:p-8 lg:p-10 shadow-sm relative overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 text-xs font-black text-amber-700 uppercase tracking-wider">
+                <Calendar className="size-4" />
+                <span>{isAr ? 'سادساً: المواعيد وطريقة الإرسال' : 'Important Deadlines'}</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black text-brand-950">
+                {isAr ? 'مواعيد قبول الأبحاث وإرسال المشاركات' : 'Key Submission Deadlines & Email'}
+              </h2>
+            </div>
+
+            {/* Official Submission Email Badge */}
+            <a
+              href="mailto:quality@mnu.edu.eg"
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs shadow-md shadow-amber-500/20 transition-all self-start sm:self-auto cursor-pointer"
+            >
+              <Mail className="size-3.5" />
+              <span>quality@mnu.edu.eg</span>
+            </a>
+          </div>
+
+          <p className="text-xs sm:text-sm text-slate-700 font-semibold mt-4 mb-6">
+            {isAr
+              ? 'تُرسل ملخصات الأبحاث والأبحاث كاملة على البريد الإلكتروني الرسمي لمركز ضمان الجودة (quality@mnu.edu.eg) وفق المواعيد الزمنية المحددة:'
+              : 'Abstracts and complete manuscripts must be submitted via email to quality@mnu.edu.eg according to the following deadlines:'}
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            
+            {/* Deadline 1: Abstracts */}
+            <div className="rounded-2xl border-2 border-amber-300 bg-white p-5 shadow-xs">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-black uppercase text-amber-700">{isAr ? 'المرحلة الأولى' : 'Phase 1'}</span>
+                <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800">1 / 4 / 2026</span>
+              </div>
+              <h4 className="text-base font-black text-brand-950 mb-1">
+                {isAr ? 'آخر موعد لاستلام الملخصات' : 'Abstract Submission Deadline'}
+              </h4>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                {isAr ? 'يوم 1 أبريل 2026 لمراجعة وتقييم فكرة البحث الأولية.' : 'April 1, 2026 for initial review and topic evaluation.'}
+              </p>
+            </div>
+
+            {/* Deadline 2: Full Papers */}
+            <div className="rounded-2xl border-2 border-emerald-300 bg-white p-5 shadow-xs">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-black uppercase text-emerald-700">{isAr ? 'المرحلة الثانية' : 'Phase 2'}</span>
+                <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">15 / 4 / 2026</span>
+              </div>
+              <h4 className="text-base font-black text-brand-950 mb-1">
+                {isAr ? 'آخر موعد لإرسال الأبحاث كاملة' : 'Full Manuscript Deadline'}
+              </h4>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                {isAr ? 'في موعد أقصاه 15 أبريل 2026 للأبحاث المكتملة.' : 'In full by April 15, 2026 for final peer-review.'}
+              </p>
+            </div>
+
+            {/* Event Date: Conference */}
+            <div className="rounded-2xl border-2 border-brand-800 bg-[#022c20] text-white p-5 shadow-md">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-black uppercase text-amber-300">{isAr ? 'يوم المؤتمر' : 'Conference Day'}</span>
+                <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-amber-400 text-brand-950">1 / 8 / 2026</span>
+              </div>
+              <h4 className="text-base font-black text-white mb-1">
+                {isAr ? 'انعقاد المؤتمر العلمي' : 'Conference Convening'}
+              </h4>
+              <p className="text-xs text-amber-100/80 leading-relaxed font-medium">
+                {isAr ? '1 أغسطس 2026 حضورياً بمقر جامعة المنوفية الأهلية.' : 'August 1, 2026 in-person at MNU campus.'}
+              </p>
+            </div>
+
+          </div>
+        </section>
+
         {/* --- SECTION 1: RESEARCH TYPES SUMMARY CARDS --- */}
         <section>
           <div className="mb-5 flex items-center justify-between">
             <div className="space-y-1">
               <div className="inline-flex items-center gap-2 text-xs font-black text-amber-600 uppercase tracking-wider">
                 <Sparkles className="size-3.5" />
-                <span>{isAr ? 'أنواع الأبحاث' : 'Categories'}</span>
+                <span>{isAr ? 'سابعاً: أنواع الأبحاث' : 'Part VII: Categories'}</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-brand-950 tracking-tight">
                 {isAr ? 'أنواع الأبحاث المسموح باستقبالها' : 'Accepted Research Types'}
@@ -199,7 +385,7 @@ export default function Guidelines() {
               <div className="space-y-1">
                 <div className="inline-flex items-center gap-1.5 text-xs font-black text-amber-600 uppercase tracking-wide">
                   <AlertCircle className="size-3.5" />
-                  <span>{isAr ? 'إرشادات عامة للمتقدمين بأبحاث' : 'General Submission Guidelines'}</span>
+                  <span>{isAr ? 'ثامناً: إرشادات للمتقدمين بأبحاث' : 'Part VIII: Author Guidelines'}</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black text-brand-950">
                   {isAr ? 'يجب أن تلتزم جميع المقالات المقدمة بالآتي:' : 'All submitted manuscripts must strictly adhere to:'}
