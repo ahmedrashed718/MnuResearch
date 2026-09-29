@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Play,
@@ -14,6 +14,7 @@ import Container from '../ui/Container';
 import { conferenceVideosData } from '../../data/videosData';
 import { useTranslation } from '../../hooks/useTranslation';
 import logo from '../../assets/images/logo.jpeg';
+import videoCoverBackdrop from '../../assets/images/video_cover_backdrop.jpg';
 
 export default function VideoShowcase() {
   const { language } = useTranslation();
@@ -22,23 +23,13 @@ export default function VideoShowcase() {
   const [activeVideo, setActiveVideo] = useState(conferenceVideosData[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
-  const videoRef = useRef(null);
 
-  const handleStartPlay = () => {
-    setIsPlaying(true);
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  };
+  // Cinematic Conference Hall Stage Backdrop
+  const coverImage = videoCoverBackdrop;
 
   const handleSelectVideo = (video) => {
     setActiveVideo(video);
     setIsPlaying(true);
-    setTimeout(() => {
-      if (videoRef.current) {
-        videoRef.current.play().catch(() => {});
-      }
-    }, 100);
   };
 
   const handleShare = () => {
@@ -173,81 +164,104 @@ export default function VideoShowcase() {
               </div>
             </div>
 
-            {/* 16:9 Screen Frame with Real Video Preview */}
+            {/* 16:9 Screen Frame with Real Video & High-Quality Cover */}
             <div className="relative aspect-[16/9] w-full bg-black overflow-hidden select-none">
-              {activeVideo.videoSrc ? (
-                <video
-                  ref={videoRef}
-                  key={activeVideo.id}
-                  src={activeVideo.videoSrc}
-                  controls={isPlaying}
-                  playsInline
-                  controlsList="nodownload"
-                  className="size-full object-contain bg-black"
-                />
-              ) : isPlaying ? (
-                <iframe
-                  key={activeVideo.id}
-                  src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
-                  title={activeTitle}
-                  className="size-full border-0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              ) : null}
+              {isPlaying ? (
+                activeVideo.videoSrc ? (
+                  <video
+                    key={activeVideo.id}
+                    src={activeVideo.videoSrc}
+                    controls
+                    autoPlay
+                    playsInline
+                    controlsList="nodownload"
+                    className="size-full object-contain bg-black"
+                  />
+                ) : (
+                  <iframe
+                    key={activeVideo.id}
+                    src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
+                    title={activeTitle}
+                    className="size-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )
+              ) : (
+                /* Seamless High-End Poster Overlay with Conference Logo */
+                <div
+                  onClick={() => setIsPlaying(true)}
+                  className="relative size-full flex flex-col items-center justify-between p-3.5 sm:p-7 text-center cursor-pointer group/overlay select-none overflow-hidden"
+                >
+                  {/* High-Resolution Image Backdrop */}
+                  <img
+                    src={coverImage}
+                    alt={activeTitle}
+                    loading="eager"
+                    className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover/overlay:scale-105 pointer-events-none"
+                  />
 
-              {/* Seamless Poster & Play Overlay */}
-              <AnimatePresence>
-                {!isPlaying && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    onClick={handleStartPlay}
-                    className="absolute inset-0 z-20 flex flex-col items-center justify-center p-4 sm:p-8 text-center cursor-pointer group/overlay select-none bg-gradient-to-t from-black/85 via-black/45 to-black/65 backdrop-blur-[0.5px]"
-                  >
-                    {/* Subtle University Crest Watermark */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                  {/* Subtle Cinematic Vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/55 pointer-events-none" />
+
+                  {/* Top Row: Official Conference Crest & Badge */}
+                  <div className="relative z-10 w-full flex items-center justify-between">
+                    <div className="flex items-center gap-2 sm:gap-2.5 rounded-full bg-black/60 border border-amber-400/40 px-2.5 py-1 sm:px-3 sm:py-1.5 backdrop-blur-md shadow-md">
                       <img
                         src={logo}
-                        alt=""
-                        className="size-40 sm:size-72 lg:size-80 rounded-full object-cover filter grayscale contrast-200"
+                        alt="MNU Conference Logo"
+                        className="size-5 sm:size-7 rounded-full object-cover bg-white p-0.5 border border-amber-400"
                       />
+                      <span className="text-[10px] sm:text-xs font-bold text-amber-300">
+                        {isAr ? 'المؤتمر الطلابي الأول للبحث العلمي' : '1st Student Research Conference'}
+                      </span>
                     </div>
 
-                    {/* Top Exclusive Badge */}
-                    <div className="relative z-10 mb-2 sm:mb-4 inline-flex items-center gap-1.5 rounded-full bg-black/60 border border-amber-400/40 px-3 py-1 text-[10px] sm:text-xs font-bold text-amber-300 backdrop-blur-md">
-                      <Sparkles className="size-3 text-amber-400" />
-                      <span>{isAr ? 'فيديو حصري للمؤتمر' : 'Exclusive Conference Video'}</span>
+                    <div className="hidden sm:inline-flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-400/35 px-2.5 py-1 text-[11px] font-black text-emerald-300 backdrop-blur-md">
+                      <Sparkles className="size-3 text-emerald-400 animate-pulse" />
+                      <span>{isAr ? 'فيديو حصري' : 'Exclusive'}</span>
+                    </div>
+                  </div>
+
+                  {/* Center Area: Conference Emblem + Ultra-Glow Magnetic Play Button */}
+                  <div className="relative z-10 flex flex-col items-center justify-center my-auto">
+                    {/* Conference Logo Jewel with Ambient Glow */}
+                    <div className="relative mb-2 sm:mb-3">
+                      <div className="size-16 sm:size-24 lg:size-28 rounded-full p-1 bg-white shadow-[0_0_40px_rgba(245,158,11,0.5)] border-2 border-amber-400">
+                        <img
+                          src={logo}
+                          alt="Conference Logo"
+                          className="size-full object-contain rounded-full"
+                        />
+                      </div>
                     </div>
 
-                    {/* Central Glowing Golden Play Button */}
+                    {/* Golden Magnetic Play Button */}
                     <motion.div
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.12 }}
                       whileTap={{ scale: 0.94 }}
-                      className="relative z-10 flex size-15 sm:size-22 lg:size-24 items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-300 text-brand-950 shadow-[0_0_40px_rgba(245,158,11,0.65)] group-hover/overlay:shadow-[0_0_65px_rgba(245,158,11,0.95)] transition-all duration-300"
+                      className="relative flex size-13 sm:size-18 lg:size-20 items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-300 text-brand-950 shadow-[0_0_35px_rgba(245,158,11,0.7)] group-hover/overlay:shadow-[0_0_60px_rgba(245,158,11,1)] transition-all duration-300"
                     >
-                      <span className="absolute -inset-2 sm:-inset-3 rounded-full border-2 border-amber-400/60 animate-ping opacity-60 pointer-events-none" />
-                      <Play className="size-6 sm:size-9 lg:size-10 fill-current ms-0.5 sm:ms-1" />
+                      <span className="absolute -inset-2 sm:-inset-2.5 rounded-full border-2 border-amber-400/60 animate-ping opacity-60 pointer-events-none" />
+                      <Play className="size-6 sm:size-8 lg:size-9 fill-current ms-0.5 sm:ms-1" />
                     </motion.div>
+                  </div>
 
-                    {/* Minimalist Title on Poster */}
-                    <div className="relative z-10 mt-3 sm:mt-5 max-w-sm sm:max-w-xl px-2">
-                      <h3 className="text-sm sm:text-xl lg:text-2xl font-black text-white drop-shadow-md line-clamp-1 sm:line-clamp-2 leading-snug">
-                        {activeTitle}
-                      </h3>
-                      <p className="mt-1 text-[11px] sm:text-xs text-amber-300 font-bold flex items-center justify-center gap-1.5">
-                        <span>{activeSpeaker}</span>
-                        <span>•</span>
-                        <span className="underline underline-offset-4 decoration-amber-400/60">
-                          {isAr ? 'انقر للتشغيل والاستماع' : 'Click to Play'}
-                        </span>
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  {/* Bottom Area: Keynote Title & Speaker */}
+                  <div className="relative z-10 max-w-sm sm:max-w-xl px-2">
+                    <h3 className="text-sm sm:text-lg lg:text-xl font-black text-white drop-shadow-md line-clamp-1 leading-snug">
+                      {activeTitle}
+                    </h3>
+                    <p className="mt-0.5 sm:mt-1 text-[11px] sm:text-xs text-amber-300 font-bold flex items-center justify-center gap-1.5">
+                      <span>{activeSpeaker}</span>
+                      <span>•</span>
+                      <span className="underline underline-offset-4 decoration-amber-400/60">
+                        {isAr ? 'انقر للتشغيل والاستماع' : 'Click to Play'}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Integrated Console Footer (Polished for Desktop & Mobile) */}

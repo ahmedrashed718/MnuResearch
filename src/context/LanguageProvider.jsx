@@ -5,7 +5,7 @@ import { LanguageContext } from './language-context';
 
 function getInitialLanguage() {
   const savedLanguage = localStorage.getItem(STORAGE_KEYS.language);
-  return savedLanguage === 'ar' || savedLanguage === 'en' ? savedLanguage : 'en';
+  return savedLanguage === 'ar' || savedLanguage === 'en' ? savedLanguage : 'ar';
 }
 
 function getNestedValue(source, path) {

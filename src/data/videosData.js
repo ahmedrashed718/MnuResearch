@@ -13,6 +13,7 @@ export const conferenceVideosData = [
     categoryAr: 'كلمة رئيس الجامعة',
     categoryEn: 'President Keynote',
     videoSrc: '/vid.mp4',
+    poster: '/video_cover_backdrop.jpg',
     youtubeId: '',
     tagAr: 'الافتتاح الرسمي',
     tagEn: 'Official Opening',
