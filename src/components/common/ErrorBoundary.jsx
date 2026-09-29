@@ -3,7 +3,7 @@ import Button from '../ui/Button';
 import Container from '../ui/Container';
 import { useTranslation } from '../../hooks/useTranslation';
 
-function ErrorFallback({ onReset }) {
+function ErrorFallback({ error, onReset }) {
   const { t } = useTranslation();
 
   return (
@@ -18,6 +18,11 @@ function ErrorFallback({ onReset }) {
         <p className="mx-auto mt-3 max-w-lg text-slate-600">
           {t('errors.tryAgain')}
         </p>
+        {error && (
+          <div className="mx-auto mt-4 max-w-xl text-left dir-ltr rounded-xl bg-red-50 p-4 border border-red-200 text-xs text-red-800 font-mono overflow-auto max-h-48">
+            <p className="font-bold">{error.toString()}</p>
+          </div>
+        )}
         <Button className="mt-7" onClick={onReset}>
           {t('actions.returnHome')}
         </Button>
@@ -27,10 +32,10 @@ function ErrorFallback({ onReset }) {
 }
 
 class ErrorBoundary extends Component {
-  state = { hasError: false };
+  state = { hasError: false, error: null };
 
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
   }
 
   componentDidCatch(error, info) {
@@ -40,13 +45,13 @@ class ErrorBoundary extends Component {
   }
 
   handleReset = () => {
-    this.setState({ hasError: false });
+    this.setState({ hasError: false, error: null });
     window.location.assign('/');
   };
 
   render() {
     if (this.state.hasError) {
-      return <ErrorFallback onReset={this.handleReset} />;
+      return <ErrorFallback error={this.state.error} onReset={this.handleReset} />;
     }
 
     return this.props.children;
