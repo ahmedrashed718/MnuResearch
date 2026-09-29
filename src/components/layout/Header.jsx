@@ -4,7 +4,6 @@ import {
   Award,
   BookOpen,
   Calendar,
-  FileText,
   Home as HomeIcon,
   Image as ImageIcon,
   Info,
@@ -34,7 +33,6 @@ const navIcons = {
   '/workshops': Sparkles,
   '/partners': Award,
   '/gallery': ImageIcon,
-  '/guidelines': FileText,
   '/contact': Mail,
 };
 
@@ -117,14 +115,16 @@ function Header() {
               <span className="absolute inset-x-4 bottom-0 h-0.5 origin-center scale-x-0 rounded-full bg-gradient-to-r from-brand-700 to-brand-900 transition-transform duration-300 group-hover:scale-x-100" />
             </NavLink>
           ))}
-          <NavLink
-            to="/registration"
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScuuKS6INAUHp5jmeQuRtNyEAiwLGhO2JdAzWhwstdL42GmMg/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative ms-2 inline-flex h-10 items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-brand-700 to-brand-600 px-5 text-sm font-extrabold text-white shadow-lg shadow-brand-900/15 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-900/20"
           >
             <span className="absolute inset-y-0 -left-10 w-8 skew-x-[-20deg] bg-white/20 blur-sm transition-transform duration-700 group-hover:translate-x-44" />
             <span className="relative">{t('actions.registerNow')}</span>
             <ArrowUpRight className="relative size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-rotate-90 rtl:group-hover:-translate-x-0.5" aria-hidden="true" />
-          </NavLink>
+          </a>
           <button
             type="button"
             onClick={() => setShowLanguageConfirm(true)}
@@ -197,14 +197,16 @@ function Header() {
 
               {/* Action Buttons Section with Harmonious Brand Styling */}
               <div className="mt-4 grid grid-cols-2 gap-2 pt-3 border-t border-brand-900/10">
-                <NavLink
-                  to="/registration"
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLScuuKS6INAUHp5jmeQuRtNyEAiwLGhO2JdAzWhwstdL42GmMg/viewform"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex h-[44px] sm:h-[48px] items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-brand-700 to-brand-600 px-3 text-xs font-black text-white shadow-md transition-all hover:bg-brand-800 group border border-brand-700"
                   onClick={() => setIsOpen(false)}
                 >
                   <span>{t('actions.registerNow')}</span>
                   <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-rotate-90 rtl:group-hover:-translate-x-0.5" aria-hidden="true" />
-                </NavLink>
+                </a>
 
                 <button
                   type="button"

@@ -65,8 +65,8 @@ export default function Agenda() {
                 <Calendar className="size-5" />
               </div>
               <div>
-                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">{isAr ? 'تاريخ المؤتمر' : 'Conference Dates'}</p>
-                <p className="text-sm font-black text-brand-950">{isAr ? '15 - 16 مايو 2026' : 'May 15 - 16, 2026'}</p>
+                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">{isAr ? 'تاريخ المؤتمر' : 'Conference Date'}</p>
+                <p className="text-sm font-black text-brand-950">{isAr ? '4 أكتوبر 2026' : 'October 4, 2026'}</p>
               </div>
             </div>
 
@@ -83,13 +83,15 @@ export default function Agenda() {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/registration"
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLScuuKS6INAUHp5jmeQuRtNyEAiwLGhO2JdAzWhwstdL42GmMg/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-brand-700 px-7 text-xs font-black text-white shadow-lg shadow-brand-900/20 transition-all hover:bg-brand-800 hover:scale-105"
             >
               <span>{isAr ? 'التسجيل في المؤتمر' : 'Register Now'}</span>
               <ArrowRight className="size-4 rtl:rotate-180" />
-            </Link>
+            </a>
 
             <Link
               to="/research-topics"

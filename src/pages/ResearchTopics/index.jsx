@@ -125,13 +125,15 @@ export default function ResearchTopics() {
                     </div>
 
                     {/* Action button to submit under this track */}
-                    <Link
-                      to="/registration"
+                    <a
+                      href="https://docs.google.com/forms/d/e/1FAIpQLScuuKS6INAUHp5jmeQuRtNyEAiwLGhO2JdAzWhwstdL42GmMg/viewform"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-700 to-brand-600 px-5 text-xs font-black text-white shadow-md shadow-brand-900/15 hover:from-brand-800 hover:to-brand-700 transition-all shrink-0"
                     >
                       <span>{isAr ? 'قدم بحثك في هذا المجال' : 'Submit Research in this Track'}</span>
                       <ArrowRight className="size-3.5 rtl:rotate-180" />
-                    </Link>
+                    </a>
                   </div>
 
                   {/* Sub-Topics Cards Grid */}

@@ -8,7 +8,6 @@ const ResearchTopics = lazy(() => import('../pages/ResearchTopics'));
 const Workshops = lazy(() => import('../pages/Workshops'));
 const Partners = lazy(() => import('../pages/Partners'));
 const Gallery = lazy(() => import('../pages/Gallery'));
-const Guidelines = lazy(() => import('../pages/Guidelines'));
 const Videos = lazy(() => import('../pages/Videos'));
 const Registration = lazy(() => import('../pages/Registration'));
 const Login = lazy(() => import('../pages/Login'));
@@ -22,7 +21,6 @@ export const publicRoutes = [
   { path: 'about', element: <About />, labelKey: 'nav.about' },
   { path: 'agenda', element: <Agenda />, labelKey: 'nav.agenda', showInNavigation: true },
   { path: 'speakers', element: <Speakers />, labelKey: 'nav.speakers', showInNavigation: true },
-  { path: 'guidelines', element: <Guidelines />, labelKey: 'nav.guidelines', showInNavigation: true },
   { path: 'research-topics', element: <ResearchTopics />, labelKey: 'nav.researchTopics' },
   { path: 'workshops', element: <Workshops />, labelKey: 'nav.workshops' },
   { path: 'partners', element: <Partners />, labelKey: 'nav.partners', showInNavigation: true },

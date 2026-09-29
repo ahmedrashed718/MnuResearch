@@ -100,18 +100,10 @@ export default function SpeakersMarquee() {
             return (
               <div
                 key={`${speaker.id}-${idx}`}
-                className="group relative w-[280px] sm:w-[320px] shrink-0 overflow-hidden rounded-3xl border border-brand-900/10 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-500/40 hover:shadow-xl hover:shadow-gold-500/10"
+                className="group relative w-[200px] sm:w-[230px] shrink-0 overflow-hidden rounded-3xl border border-brand-900/10 bg-white p-5 text-center shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-500/40 hover:shadow-lg hover:shadow-gold-500/10"
               >
-                {/* Top Badge */}
-                <div className="absolute top-4 end-4 z-10">
-                  <span className="inline-flex items-center gap-1 rounded-full border border-gold-500/30 bg-white/90 px-3 py-1 text-[11px] font-bold text-gold-700 shadow-sm backdrop-blur">
-                    <Award className="size-3 text-gold-500" />
-                    {badge}
-                  </span>
-                </div>
-
                 {/* Speaker Avatar */}
-                <div className="relative mb-5 mx-auto size-28 overflow-hidden rounded-full border-4 border-gold-500/20 shadow-inner group-hover:border-gold-500/50 transition-colors">
+                <div className="relative mb-3.5 mx-auto size-24 sm:size-28 overflow-hidden rounded-full border-4 border-gold-500/20 shadow-inner group-hover:border-gold-500/50 transition-colors">
                   <img
                     src={speaker.image}
                     alt={name}
@@ -121,26 +113,13 @@ export default function SpeakersMarquee() {
                 </div>
 
                 {/* Speaker Info */}
-                <div className="text-center">
-                  <h3 className="text-lg font-bold text-brand-950 transition-colors group-hover:text-brand-700">
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-brand-950 transition-colors group-hover:text-brand-700 line-clamp-1">
                     {name}
                   </h3>
-                  <p className="mt-1 text-xs font-semibold text-gold-700">
+                  <p className="mt-1 text-xs font-semibold text-gold-700 line-clamp-1">
                     {title}
                   </p>
-                  
-                  <div className="mt-2.5 flex items-center justify-center gap-1.5 text-xs text-slate-500">
-                    <GraduationCap className="size-3.5 shrink-0 text-brand-600" />
-                    <span className="truncate">{institution}</span>
-                  </div>
-
-                  {/* Research Topic Pill */}
-                  <div className="mt-4 rounded-xl bg-slate-50 p-2.5 text-center border border-slate-100 group-hover:border-gold-500/20 group-hover:bg-gold-50/40 transition-colors">
-                    <p className="text-[11px] font-medium text-slate-600 line-clamp-2 leading-relaxed">
-                      <span className="font-bold text-brand-800 me-1">💬</span>
-                      "{topic}"
-                    </p>
-                  </div>
                 </div>
               </div>
             );

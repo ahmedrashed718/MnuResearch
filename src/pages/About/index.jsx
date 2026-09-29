@@ -19,7 +19,6 @@ import {
   Trophy,
   Users
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import Container from '../../components/ui/Container';
 import { useTranslation } from '../../hooks/useTranslation';
 import logo from '../../assets/images/logo.jpeg';
@@ -130,7 +129,7 @@ export default function About() {
                 <div className="flex flex-wrap items-center gap-2.5 pt-1 text-xs font-extrabold text-amber-200">
                   <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 border border-white/10 backdrop-blur-sm">
                     <Calendar className="size-3.5 text-amber-400" />
-                    <span>{isAr ? '1 أغسطس 2026' : 'August 1, 2026'}</span>
+                    <span>{isAr ? '4 أكتوبر 2026' : 'October 4, 2026'}</span>
                   </div>
                   <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 border border-white/10 backdrop-blur-sm">
                     <MapPin className="size-3.5 text-amber-400" />
@@ -182,8 +181,8 @@ export default function About() {
           <div className="prose prose-slate max-w-none text-slate-700 leading-relaxed text-sm sm:text-base font-medium space-y-3">
             <p>
               {isAr
-                ? 'في ضوء حرص الدولة على تشجيع الباحثين، تعقد جامعة المنوفية الأهلية المؤتمر الطلابي العلمي الأول الدولي "علماء المستقبل" لطلاب الجامعة، وهو لقاء علمي ينظمه وحدة الأبحاث الطلابية وذلك في 1 أغسطس 2026 والذي سيُعقد حضورياً في مقر الجامعة.'
-                : 'In light of the state’s commitment to encouraging researchers, Menoufia National University is convening the 1st International Student Scientific Conference "Future Scientists" for university students. This prestigious scientific gathering is organized by the Student Research Unit on August 1, 2026, held in-person on campus.'}
+                ? 'في ضوء حرص الدولة على تشجيع الباحثين، تعقد جامعة المنوفية الأهلية المؤتمر الطلابي العلمي الأول الدولي "علماء المستقبل" لطلاب الجامعة، وهو لقاء علمي ينظمه وحدة الأبحاث الطلابية وذلك في 4 أكتوبر 2026 والذي سيُعقد حضورياً في مقر الجامعة.'
+                : 'In light of the state’s commitment to encouraging researchers, Menoufia National University is convening the 1st International Student Scientific Conference "Future Scientists" for university students. This prestigious scientific gathering is organized by the Student Research Unit on October 4, 2026, held in-person on campus.'}
             </p>
             <p>
               {isAr
@@ -200,7 +199,7 @@ export default function About() {
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4">
               <span className="block text-[11px] font-bold text-slate-500">{isAr ? 'تاريخ الانعقاد:' : 'Event Date:'}</span>
-              <span className="text-xs sm:text-sm font-black text-brand-950 mt-0.5 block">{isAr ? '1 أغسطس 2026' : 'August 1, 2026'}</span>
+              <span className="text-xs sm:text-sm font-black text-brand-950 mt-0.5 block">{isAr ? '4 أكتوبر 2026' : 'October 4, 2026'}</span>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4">
               <span className="block text-[11px] font-bold text-slate-500">{isAr ? 'صيغة الحضور:' : 'Format:'}</span>
@@ -379,14 +378,14 @@ export default function About() {
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
               {isAr
-                ? 'تعرف على الشروط وضوابط كتابة المقالات، أو قم بملء استمارة المشاركة الإلكترونية مباشرة.'
-                : 'Explore guidelines and submission criteria, or fill out the official online participation form.'}
+                ? 'قم بملء استمارة المشاركة الإلكترونية الرسمية مباشرة للانضمام وتقديم أبحاثك في المؤتمر.'
+                : 'Fill out the official online participation form to join and submit your research in the conference.'}
             </p>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
-              href="https://forms.office.com/r/Cnbi3kRcdD"
+              href="https://docs.google.com/forms/d/e/1FAIpQLScuuKS6INAUHp5jmeQuRtNyEAiwLGhO2JdAzWhwstdL42GmMg/viewform"
               target="_blank"
               rel="noopener noreferrer"
               className="h-12 px-6 rounded-xl bg-amber-400 hover:bg-amber-300 text-brand-950 font-black text-xs shadow-lg shadow-amber-400/20 flex items-center gap-2 transition-all cursor-pointer"
@@ -394,13 +393,6 @@ export default function About() {
               <span>{isAr ? 'استمارة المشاركة الرسمية' : 'Official Submission Form'}</span>
               <ExternalLink className="size-4" />
             </a>
-
-            <Link
-              to="/guidelines"
-              className="h-12 px-6 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-extrabold text-xs flex items-center gap-2 transition-all"
-            >
-              <span>{isAr ? 'شروط وإرشادات الأبحاث' : 'Author Guidelines'}</span>
-            </Link>
           </div>
         </section>
 

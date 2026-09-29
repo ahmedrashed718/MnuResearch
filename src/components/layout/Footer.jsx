@@ -5,7 +5,6 @@ import {
   ArrowUpRight,
   BookOpen,
   Calendar,
-  FileText,
   Mail,
   MapPin,
   Sparkles,
@@ -136,20 +135,15 @@ function Footer() {
 
               {/* Quick Action Badges */}
               <div className="flex flex-wrap gap-2.5 pt-1">
-                <Link
-                  to="/registration"
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLScuuKS6INAUHp5jmeQuRtNyEAiwLGhO2JdAzWhwstdL42GmMg/viewform"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-5 py-2.5 text-xs font-black text-brand-950 shadow-md transition-all hover:scale-105 hover:shadow-amber-500/25"
                 >
                   <span>{t('actions.registerNow')}</span>
                   <ArrowUpRight className="size-3.5 rtl:-rotate-90" />
-                </Link>
-                <Link
-                  to="/guidelines"
-                  className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-white/10 px-5 py-2.5 text-xs font-bold text-amber-100 backdrop-blur-md transition-all hover:bg-white/20 hover:text-white"
-                >
-                  <FileText className="size-3.5 text-amber-400" />
-                  <span>{isAr ? 'الارشادات' : 'Guidelines'}</span>
-                </Link>
+                </a>
               </div>
             </div>
 
@@ -190,10 +184,10 @@ function Footer() {
                 <div className="rounded-2xl border border-amber-400/20 bg-white/5 p-3.5 backdrop-blur-md">
                   <div className="flex items-center gap-2 text-amber-300 font-extrabold mb-1">
                     <Calendar className="size-4 text-amber-400" />
-                    <span>{isAr ? 'موعد المؤتمر' : 'Dates'}</span>
+                    <span>{isAr ? 'موعد المؤتمر' : 'Date'}</span>
                   </div>
-                  <p className="text-white font-bold">15 - 16 مايو 2026</p>
-                  <p className="text-[11px] text-amber-100/70">{isAr ? 'جلسات علمية' : 'Keynote sessions'}</p>
+                  <p className="text-white font-bold">{isAr ? '4 أكتوبر 2026' : 'October 4, 2026'}</p>
+                  <p className="text-[11px] text-amber-100/70">{isAr ? 'انعقاد المؤتمر' : 'Conference Day'}</p>
                 </div>
 
                 {/* Venue Card */}
