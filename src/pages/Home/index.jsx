@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.jpeg';
-import mnuColoredBuildingNoBg from 'C:/Users/Admin/.gemini/antigravity-ide/brain/546ca4e9-185c-4d79-a5f2-ed71a3220f5c/colored_building_no_bg_1789027515511.png';
+import mnuColoredBuildingNoBg from '../../assets/images/colored_building_no_bg.png';
 import SpeakersMarquee from '../../components/common/SpeakersMarquee';
 import VideoShowcase from '../../components/common/VideoShowcase';
 import PartnersMarquee from '../../components/common/PartnersMarquee';
