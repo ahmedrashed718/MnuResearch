@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Play,
@@ -24,12 +24,67 @@ export default function VideoShowcase() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
   const videoRef = useRef(null);
+  const iframeRef = useRef(null);
+  const playerContainerRef = useRef(null);
+
+  const pauseVideo = () => {
+    if (videoRef.current && !videoRef.current.paused) {
+      videoRef.current.pause();
+    }
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' }),
+        '*'
+      );
+    }
+  };
+
+  // Pause when scrolling away from video
+  useEffect(() => {
+    const target = playerContainerRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.2) {
+            pauseVideo();
+          }
+        });
+      },
+      {
+        threshold: [0, 0.2, 0.5],
+      }
+    );
+
+    observer.observe(target);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  // Pause when switching tabs or window loses visibility
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        pauseVideo();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
 
   const handleStartPlay = () => {
     setIsPlaying(true);
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
+    setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.play().catch(() => {});
+      }
+    }, 50);
   };
 
   const handleSelectVideo = (video) => {
@@ -153,7 +208,11 @@ export default function VideoShowcase() {
         )}
 
         {/* --- LUXURY CINEMA STAGE (Surround Glow on Desktop & Flawless Mobile Ergonomics) --- */}
-        <div className="relative group/player mx-auto">
+        <div
+          ref={playerContainerRef}
+          onMouseLeave={pauseVideo}
+          className="relative group/player mx-auto"
+        >
           {/* Ambient Dynamic Backlight Ring */}
           <div className="absolute -inset-1 sm:-inset-2 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-amber-500/25 via-emerald-500/20 to-amber-500/25 blur-xl sm:blur-2xl opacity-75 group-hover/player:opacity-100 transition-opacity duration-500 -z-10" />
 
@@ -179,6 +238,7 @@ export default function VideoShowcase() {
               {isPlaying ? (
                 activeVideo.videoSrc ? (
                   <video
+                    ref={videoRef}
                     key={activeVideo.id}
                     src={activeVideo.videoSrc}
                     controls
@@ -189,8 +249,9 @@ export default function VideoShowcase() {
                   />
                 ) : (
                   <iframe
+                    ref={iframeRef}
                     key={activeVideo.id}
-                    src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
+                    src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1&enablejsapi=1&rel=0&modestbranding=1`}
                     title={activeTitle}
                     className="size-full border-0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -200,7 +261,7 @@ export default function VideoShowcase() {
               ) : (
                 /* Clean Cinema Poster with Theater Stage & Centered Play Button Only */
                 <div
-                  onClick={() => setIsPlaying(true)}
+                  onClick={handleStartPlay}
                   className="relative size-full flex items-center justify-center cursor-pointer group/overlay select-none overflow-hidden"
                 >
                   {/* Theater Stage Backdrop directly on the video */}
