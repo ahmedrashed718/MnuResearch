@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Play,
@@ -23,13 +23,23 @@ export default function VideoShowcase() {
   const [activeVideo, setActiveVideo] = useState(conferenceVideosData[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
+  const videoRef = useRef(null);
 
-  // Cinematic Conference Hall Stage Backdrop
-  const coverImage = videoCoverBackdrop;
+  const handleStartPlay = () => {
+    setIsPlaying(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  };
 
   const handleSelectVideo = (video) => {
     setActiveVideo(video);
     setIsPlaying(true);
+    setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.play().catch(() => {});
+      }
+    }, 100);
   };
 
   const handleShare = () => {
@@ -51,7 +61,7 @@ export default function VideoShowcase() {
   const activeSpeaker = isAr ? activeVideo.speakerAr : activeVideo.speakerEn;
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#011912] via-[#02241a] to-[#01140e] py-12 sm:py-20 text-white border-y border-amber-500/25">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#011912] via-[#02241a] to-[#01140e] py-12 sm:py-24 text-white border-y border-amber-500/25">
       {/* Dynamic Theater Glow & Spotlights */}
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[340px] sm:w-[700px] lg:w-[1000px] h-[300px] sm:h-[450px] bg-gradient-to-b from-amber-400/20 via-emerald-400/10 to-transparent blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 -start-28 size-60 sm:size-96 rounded-full bg-emerald-500/15 blur-3xl pointer-events-none" />
@@ -164,7 +174,7 @@ export default function VideoShowcase() {
               </div>
             </div>
 
-            {/* 16:9 Screen Frame with Real Video & High-Quality Cover */}
+            {/* 16:9 Screen Frame with Theater Stage Backdrop as Video Cover */}
             <div className="relative aspect-[16/9] w-full bg-black overflow-hidden select-none">
               {isPlaying ? (
                 activeVideo.videoSrc ? (
@@ -188,78 +198,31 @@ export default function VideoShowcase() {
                   />
                 )
               ) : (
-                /* Seamless High-End Poster Overlay with Conference Logo */
+                /* Clean Cinema Poster with Theater Stage & Centered Play Button Only */
                 <div
                   onClick={() => setIsPlaying(true)}
-                  className="relative size-full flex flex-col items-center justify-between p-3.5 sm:p-7 text-center cursor-pointer group/overlay select-none overflow-hidden"
+                  className="relative size-full flex items-center justify-center cursor-pointer group/overlay select-none overflow-hidden"
                 >
-                  {/* High-Resolution Image Backdrop */}
+                  {/* Theater Stage Backdrop directly on the video */}
                   <img
-                    src={coverImage}
+                    src={videoCoverBackdrop}
                     alt={activeTitle}
                     loading="eager"
                     className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover/overlay:scale-105 pointer-events-none"
                   />
 
-                  {/* Subtle Cinematic Vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/55 pointer-events-none" />
+                  {/* Soft Cinematic Vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
 
-                  {/* Top Row: Official Conference Crest & Badge */}
-                  <div className="relative z-10 w-full flex items-center justify-between">
-                    <div className="flex items-center gap-2 sm:gap-2.5 rounded-full bg-black/60 border border-amber-400/40 px-2.5 py-1 sm:px-3 sm:py-1.5 backdrop-blur-md shadow-md">
-                      <img
-                        src={logo}
-                        alt="MNU Conference Logo"
-                        className="size-5 sm:size-7 rounded-full object-cover bg-white p-0.5 border border-amber-400"
-                      />
-                      <span className="text-[10px] sm:text-xs font-bold text-amber-300">
-                        {isAr ? 'المؤتمر الطلابي الأول للبحث العلمي' : '1st Student Research Conference'}
-                      </span>
-                    </div>
-
-                    <div className="hidden sm:inline-flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-400/35 px-2.5 py-1 text-[11px] font-black text-emerald-300 backdrop-blur-md">
-                      <Sparkles className="size-3 text-emerald-400 animate-pulse" />
-                      <span>{isAr ? 'فيديو حصري' : 'Exclusive'}</span>
-                    </div>
-                  </div>
-
-                  {/* Center Area: Conference Emblem + Ultra-Glow Magnetic Play Button */}
-                  <div className="relative z-10 flex flex-col items-center justify-center my-auto">
-                    {/* Conference Logo Jewel with Ambient Glow */}
-                    <div className="relative mb-2 sm:mb-3">
-                      <div className="size-16 sm:size-24 lg:size-28 rounded-full p-1 bg-white shadow-[0_0_40px_rgba(245,158,11,0.5)] border-2 border-amber-400">
-                        <img
-                          src={logo}
-                          alt="Conference Logo"
-                          className="size-full object-contain rounded-full"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Golden Magnetic Play Button */}
-                    <motion.div
-                      whileHover={{ scale: 1.12 }}
-                      whileTap={{ scale: 0.94 }}
-                      className="relative flex size-13 sm:size-18 lg:size-20 items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-300 text-brand-950 shadow-[0_0_35px_rgba(245,158,11,0.7)] group-hover/overlay:shadow-[0_0_60px_rgba(245,158,11,1)] transition-all duration-300"
-                    >
-                      <span className="absolute -inset-2 sm:-inset-2.5 rounded-full border-2 border-amber-400/60 animate-ping opacity-60 pointer-events-none" />
-                      <Play className="size-6 sm:size-8 lg:size-9 fill-current ms-0.5 sm:ms-1" />
-                    </motion.div>
-                  </div>
-
-                  {/* Bottom Area: Keynote Title & Speaker */}
-                  <div className="relative z-10 max-w-sm sm:max-w-xl px-2">
-                    <h3 className="text-sm sm:text-lg lg:text-xl font-black text-white drop-shadow-md line-clamp-1 leading-snug">
-                      {activeTitle}
-                    </h3>
-                    <p className="mt-0.5 sm:mt-1 text-[11px] sm:text-xs text-amber-300 font-bold flex items-center justify-center gap-1.5">
-                      <span>{activeSpeaker}</span>
-                      <span>•</span>
-                      <span className="underline underline-offset-4 decoration-amber-400/60">
-                        {isAr ? 'انقر للتشغيل والاستماع' : 'Click to Play'}
-                      </span>
-                    </p>
-                  </div>
+                  {/* Golden Magnetic Play Button Centered */}
+                  <motion.div
+                    whileHover={{ scale: 1.12 }}
+                    whileTap={{ scale: 0.94 }}
+                    className="relative z-10 flex size-20 sm:size-26 lg:size-30 items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-300 text-brand-950 shadow-[0_0_50px_rgba(245,158,11,0.8)] group-hover/overlay:shadow-[0_0_85px_rgba(245,158,11,1)] transition-all duration-300"
+                  >
+                    <span className="absolute -inset-2.5 sm:-inset-3.5 rounded-full border-2 sm:border-3 border-amber-400/70 animate-ping opacity-60 pointer-events-none" />
+                    <Play className="size-10 sm:size-13 lg:size-15 fill-current ms-1 sm:ms-1.5" />
+                  </motion.div>
                 </div>
               )}
             </div>
