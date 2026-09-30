@@ -45,19 +45,19 @@ function Modal({ isOpen, onClose, title, children, footer, maxWidthClass = 'max-
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className={`relative z-10 w-full ${maxWidthClass} overflow-hidden rounded-3xl bg-white shadow-2xl dir-auto`}
+            className={`relative z-10 w-full ${maxWidthClass} my-auto max-h-[92vh] flex flex-col overflow-hidden rounded-3xl bg-white shadow-2xl dir-auto`}
             initial={{ opacity: 0, y: 20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
           >
-            <div className="flex items-center justify-between border-b border-emerald-900/10 bg-emerald-950/5 px-6 py-4">
-              <h2 id={titleId} className="text-xl font-bold text-slate-900">{title}</h2>
+            <div className="flex shrink-0 items-center justify-between border-b border-emerald-900/10 bg-emerald-950/5 px-5 py-3 sm:px-6 sm:py-4">
+              <h2 id={titleId} className="text-base sm:text-xl font-bold text-slate-900">{title}</h2>
               <Button ref={closeButtonRef} variant="ghost" size="icon" onClick={onClose} aria-label={t('actions.close')} className="rounded-full hover:bg-emerald-900/10">
                 <X className="size-5 text-slate-600" aria-hidden="true" />
               </Button>
             </div>
-            <div className="px-6 py-6">{children}</div>
-            {footer && <div className="border-t border-emerald-900/10 bg-slate-50 px-6 py-4">{footer}</div>}
+            <div className="px-4 py-4 sm:px-6 sm:py-6 overflow-y-auto flex-1">{children}</div>
+            {footer && <div className="shrink-0 border-t border-emerald-900/10 bg-slate-50 px-4 py-3 sm:px-6 sm:py-4">{footer}</div>}
           </motion.div>
         </div>
       )}

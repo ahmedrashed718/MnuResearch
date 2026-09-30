@@ -148,15 +148,15 @@ export default function VideoShowcase() {
             {conferenceVideosData.length > 1 ? (
               isAr ? (
                 <>
-                  <span>كلمة الافتتاح</span>{' '}
+                  <span>الكلمات الافتتاحية</span>{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-200">
-                    والعروض التعريفية
+                    لقيادات الجامعة
                   </span>
                 </>
               ) : (
                 <>
-                  <span>Keynote Speech &</span>{' '}
-                  <span className="text-amber-400">Highlights</span>
+                  <span>Keynote Addresses by</span>{' '}
+                  <span className="text-amber-400">University Leadership</span>
                 </>
               )
             ) : (
@@ -179,7 +179,7 @@ export default function VideoShowcase() {
 
         {/* --- DYNAMIC TABS (Automatically visible when multiple videos exist) --- */}
         {conferenceVideosData.length > 1 && (
-          <div className="flex items-center justify-center p-1 mb-5 sm:mb-7 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md max-w-md mx-auto gap-1">
+          <div className="flex flex-col sm:flex-row items-center justify-center p-1.5 mb-6 sm:mb-8 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md max-w-lg mx-auto gap-2">
             {conferenceVideosData.map((video, idx) => {
               const isCurrent = video.id === activeVideo.id;
               const shortTitle = isAr ? video.shortTitleAr : video.shortTitleEn;
@@ -189,18 +189,14 @@ export default function VideoShowcase() {
                   key={video.id}
                   type="button"
                   onClick={() => handleSelectVideo(video)}
-                  className={`relative flex-1 flex items-center justify-center gap-1.5 py-2 sm:py-2.5 px-3 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-black transition-all duration-200 cursor-pointer ${
+                  className={`relative w-full sm:flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     isCurrent
                       ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-brand-950 shadow-md shadow-amber-500/25'
-                      : 'text-slate-300 hover:text-white hover:bg-white/5'
+                      : 'text-slate-300 hover:text-white hover:bg-white/10'
                   }`}
                 >
-                  {idx === 0 ? (
-                    <Award className="size-3.5 sm:size-4 shrink-0" />
-                  ) : (
-                    <Video className="size-3.5 sm:size-4 shrink-0" />
-                  )}
-                  <span className="truncate">{shortTitle}</span>
+                  <Award className={`size-4 shrink-0 ${isCurrent ? 'text-brand-950' : 'text-amber-400'}`} />
+                  <span>{shortTitle}</span>
                 </button>
               );
             })}

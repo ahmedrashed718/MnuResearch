@@ -28,7 +28,7 @@ const navIcons = {
   '/': HomeIcon,
   '/about': Info,
   '/agenda': Calendar,
-  // '/speakers': Users,
+  '/speakers': Users,
   '/research-topics': BookOpen,
   '/workshops': Sparkles,
   '/partners': Award,

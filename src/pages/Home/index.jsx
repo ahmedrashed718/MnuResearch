@@ -11,7 +11,7 @@ import {
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.jpeg';
 import mnuColoredBuildingNoBg from '../../assets/images/colored_building_no_bg.png';
-// import SpeakersMarquee from '../../components/common/SpeakersMarquee';
+import SpeakersMarquee from '../../components/common/SpeakersMarquee';
 import VideoShowcase from '../../components/common/VideoShowcase';
 import PartnersMarquee from '../../components/common/PartnersMarquee';
 import Container from '../../components/ui/Container';
@@ -364,7 +364,7 @@ function Home() {
       <VideoShowcase />
 
       {/* Speakers Marquee */}
-      {/* <SpeakersMarquee /> */}
+      <SpeakersMarquee />
 
       {/* Partners & Sponsors Marquee */}
       <PartnersMarquee />

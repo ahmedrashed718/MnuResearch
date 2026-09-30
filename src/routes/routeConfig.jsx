@@ -3,7 +3,7 @@ import { lazy } from 'react';
 const Home = lazy(() => import('../pages/Home'));
 const About = lazy(() => import('../pages/About'));
 const Agenda = lazy(() => import('../pages/Agenda'));
-// const Speakers = lazy(() => import('../pages/Speakers'));
+const Speakers = lazy(() => import('../pages/Speakers'));
 const ResearchTopics = lazy(() => import('../pages/ResearchTopics'));
 const Workshops = lazy(() => import('../pages/Workshops'));
 const Partners = lazy(() => import('../pages/Partners'));
@@ -20,7 +20,7 @@ export const publicRoutes = [
   { path: '', element: <Home />, labelKey: 'nav.home', showInNavigation: true },
   { path: 'about', element: <About />, labelKey: 'nav.about' },
   { path: 'agenda', element: <Agenda />, labelKey: 'nav.agenda', showInNavigation: true },
-  // { path: 'speakers', element: <Speakers />, labelKey: 'nav.speakers', showInNavigation: true },
+  { path: 'speakers', element: <Speakers />, labelKey: 'nav.speakers', showInNavigation: true },
   { path: 'research-topics', element: <ResearchTopics />, labelKey: 'nav.researchTopics' },
   { path: 'workshops', element: <Workshops />, labelKey: 'nav.workshops' },
   { path: 'partners', element: <Partners />, labelKey: 'nav.partners', showInNavigation: true },
