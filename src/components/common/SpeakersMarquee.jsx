@@ -1,14 +1,25 @@
-import { ArrowRight, Award, GraduationCap, Sparkles } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { dummySpeakers } from '../../data/speakersData';
 import { useTranslation } from '../../hooks/useTranslation';
 import Container from '../ui/Container';
+import SpeakerCard from './SpeakerCard';
+import SpeakerModal from './SpeakerModal';
 
 export default function SpeakersMarquee() {
   const { language, t } = useTranslation();
+  const isAr = language === 'ar';
+
+  const sectionRef = useRef(null);
   const scrollRef = useRef(null);
-  const [isInteracting, setIsInteracting] = useState(false);
+  const isInteractingRef = useRef(false);
+  const resumeTimeoutRef = useRef(null);
+  const isVisibleRef = useRef(true);
+  const hasDraggedRef = useRef(false);
+  const touchStartPos = useRef({ x: 0, y: 0 });
+
+  const [selectedSpeaker, setSelectedSpeaker] = useState(null);
 
   // Duplicate items 4 times to guarantee a 100% seamless, unbroken infinite loop
   const marqueeItems = [
@@ -18,23 +29,63 @@ export default function SpeakersMarquee() {
     ...dummySpeakers,
   ];
 
+  // Pause helper
+  const pauseAutoScroll = () => {
+    isInteractingRef.current = true;
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+  };
+
+  // Smart Resume helper (waits after touch/inertia ends before resuming)
+  const scheduleResume = (delay = 2200) => {
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+    }
+    resumeTimeoutRef.current = setTimeout(() => {
+      isInteractingRef.current = false;
+    }, delay);
+  };
+
+  // IntersectionObserver: Only animate when visible on screen to save mobile battery
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisibleRef.current = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  // Butter-smooth 60-120fps auto-scroll engine
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
 
     let animId;
-    const speed = 0.75; // Ultra-smooth 60-120fps auto scroll speed
+    const speed = 0.75; // Optimal readable auto-scroll speed
 
     const step = () => {
-      if (!isInteracting && container) {
-        if (language === 'ar') {
+      if (!isInteractingRef.current && isVisibleRef.current && container) {
+        const halfWidth = container.scrollWidth / 2;
+
+        if (isAr) {
           container.scrollLeft -= speed;
-          if (Math.abs(container.scrollLeft) >= container.scrollWidth / 2) {
+          if (Math.abs(container.scrollLeft) >= halfWidth) {
             container.scrollLeft = 0;
           }
         } else {
           container.scrollLeft += speed;
-          if (container.scrollLeft >= container.scrollWidth / 2) {
+          if (container.scrollLeft >= halfWidth) {
             container.scrollLeft = 0;
           }
         }
@@ -43,89 +94,120 @@ export default function SpeakersMarquee() {
     };
 
     animId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animId);
-  }, [isInteracting, language]);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    };
+  }, [isAr]);
+
+  const handleSpeakerClick = (speaker) => {
+    if (!hasDraggedRef.current) {
+      setSelectedSpeaker(speaker);
+    }
+  };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#f8fbf9] via-white to-[#f8fbf9] py-16 lg:py-20 border-t border-brand-900/5">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-gradient-to-b from-[#f8fbf9] via-white to-[#f8fbf9] py-14 sm:py-20 border-t border-brand-900/5 select-none"
+    >
       <Container className="mb-8 sm:mb-10">
+        {/* Section Header */}
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/20 bg-gold-50/80 px-3.5 py-1.5 text-xs font-bold text-gold-700 shadow-sm backdrop-blur">
-              <Sparkles className="size-3.5 text-gold-600" />
-              {t('home.speakersBadge')}
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/25 bg-amber-50/90 px-3.5 py-1.5 text-xs font-bold text-amber-800 shadow-xs backdrop-blur">
+              <Sparkles className="size-3.5 text-amber-600" />
+              <span>{t('home.speakersBadge')}</span>
             </div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-brand-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-brand-950">
               {t('home.speakersTitle')}
             </h2>
-            <p className="mt-2 max-w-xl text-base text-slate-600">
+            <p className="mt-2 max-w-xl text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
               {t('home.speakersSubtitle')}
             </p>
           </div>
 
           <Link
             to="/speakers"
-            className="group inline-flex items-center gap-2 text-sm font-bold text-brand-700 transition-colors hover:text-brand-900"
+            className="group inline-flex items-center gap-2 text-xs sm:text-sm font-black text-brand-800 transition-colors hover:text-brand-950"
           >
-            {t('home.viewAllSpeakers')}
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+            <span>{t('home.viewAllSpeakers')}</span>
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1 text-amber-600" />
           </Link>
         </div>
       </Container>
 
-      {/* 100% Butter-Smooth Hardware-Accelerated Touch Marquee */}
-      <div className="relative w-full overflow-hidden py-3">
+      {/* --- SMART TOUCH & AUTO-SCROLLING SPEAKERS TRACK --- */}
+      <div className="relative w-full overflow-hidden py-2">
         {/* Left & Right Gradient Shadows for seamless fade effect */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#f8fbf9] to-transparent sm:w-28 lg:w-36" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#f8fbf9] to-transparent sm:w-28 lg:w-36" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 sm:w-24 lg:w-36 bg-gradient-to-r from-[#f8fbf9] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 sm:w-24 lg:w-36 bg-gradient-to-l from-[#f8fbf9] to-transparent" />
 
         <div
           ref={scrollRef}
-          className="flex w-full overflow-x-auto scrollbar-none gap-6 px-4 sm:px-6 lg:px-8 touch-pan-x py-2 select-none"
+          className="flex w-full overflow-x-auto scrollbar-none gap-5 sm:gap-6 px-4 sm:px-6 lg:px-8 py-2 touch-pan-x cursor-grab active:cursor-grabbing"
           style={{
             WebkitOverflowScrolling: 'touch',
+            overscrollBehaviorX: 'contain',
           }}
-          onMouseEnter={() => setIsInteracting(true)}
-          onMouseLeave={() => setIsInteracting(false)}
-          onTouchStart={() => setIsInteracting(true)}
-          onTouchEnd={() => setIsInteracting(false)}
+          // Mouse interaction (Desktop)
+          onMouseEnter={pauseAutoScroll}
+          onMouseLeave={() => scheduleResume(400)}
+
+          // Smart Touch interaction (Mobile)
+          onTouchStart={(e) => {
+            pauseAutoScroll();
+            hasDraggedRef.current = false;
+            if (e.touches && e.touches[0]) {
+              touchStartPos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+          }}
+          onTouchMove={(e) => {
+            pauseAutoScroll();
+            if (e.touches && e.touches[0]) {
+              const diffX = Math.abs(e.touches[0].clientX - touchStartPos.current.x);
+              const diffY = Math.abs(e.touches[0].clientY - touchStartPos.current.y);
+              if (diffX > 6 || diffY > 6) {
+                hasDraggedRef.current = true;
+              }
+            }
+          }}
+          onTouchEnd={() => {
+            scheduleResume(2200);
+            setTimeout(() => {
+              hasDraggedRef.current = false;
+            }, 150);
+          }}
+          onTouchCancel={() => scheduleResume(1500)}
+
+          // Detect momentum scroll settling on mobile
+          onScroll={() => {
+            if (isInteractingRef.current) {
+              scheduleResume(2000);
+            }
+          }}
         >
-          {marqueeItems.map((speaker, idx) => {
-            const name = language === 'ar' ? speaker.nameAr : speaker.nameEn;
-            const title = language === 'ar' ? speaker.titleAr : speaker.titleEn;
-            const institution = language === 'ar' ? speaker.institutionAr : speaker.institutionEn;
-            const topic = language === 'ar' ? speaker.topicAr : speaker.topicEn;
-            const badge = language === 'ar' ? speaker.badgeAr : speaker.badgeEn;
-
-            return (
-              <div
-                key={`${speaker.id}-${idx}`}
-                className="group relative w-[200px] sm:w-[230px] shrink-0 overflow-hidden rounded-3xl border border-brand-900/10 bg-white p-5 text-center shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-500/40 hover:shadow-lg hover:shadow-gold-500/10"
-              >
-                {/* Speaker Avatar */}
-                <div className="relative mb-3.5 mx-auto size-24 sm:size-28 overflow-hidden rounded-full border-4 border-gold-500/20 shadow-inner group-hover:border-gold-500/50 transition-colors">
-                  <img
-                    src={speaker.image}
-                    alt={name}
-                    className="size-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                </div>
-
-                {/* Speaker Info */}
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold text-brand-950 transition-colors group-hover:text-brand-700 line-clamp-1">
-                    {name}
-                  </h3>
-                  <p className="mt-1 text-xs font-semibold text-gold-700 line-clamp-1">
-                    {title}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+          {marqueeItems.map((speaker, idx) => (
+            <div
+              key={`${speaker.id}-${idx}`}
+              className="w-[230px] sm:w-[270px] shrink-0"
+              onClick={() => handleSpeakerClick(speaker)}
+            >
+              <SpeakerCard
+                speaker={speaker}
+                onSelect={() => handleSpeakerClick(speaker)}
+              />
+            </div>
+          ))}
         </div>
       </div>
+
+      {/* Speaker Detail Modal */}
+      <SpeakerModal
+        speaker={selectedSpeaker}
+        onClose={() => setSelectedSpeaker(null)}
+      />
     </section>
   );
 }
