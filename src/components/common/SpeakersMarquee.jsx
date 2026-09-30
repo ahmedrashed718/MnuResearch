@@ -19,15 +19,15 @@ export default function SpeakersMarquee() {
   const hasDraggedRef = useRef(false);
   const touchStartPos = useRef({ x: 0, y: 0 });
 
+  // Direction: 1 for forward, -1 for backward
+  const directionRef = useRef(1);
+  const isWaitingAtEndRef = useRef(false);
+  const edgeTimeoutRef = useRef(null);
+
   const [selectedSpeaker, setSelectedSpeaker] = useState(null);
 
-  // Duplicate items 4 times to guarantee a 100% seamless, unbroken infinite loop
-  const marqueeItems = [
-    ...dummySpeakers,
-    ...dummySpeakers,
-    ...dummySpeakers,
-    ...dummySpeakers,
-  ];
+  // Each speaker appears once (no repetition)
+  const speakersList = dummySpeakers;
 
   // Pause helper
   const pauseAutoScroll = () => {
@@ -36,6 +36,11 @@ export default function SpeakersMarquee() {
       clearTimeout(resumeTimeoutRef.current);
       resumeTimeoutRef.current = null;
     }
+    if (edgeTimeoutRef.current) {
+      clearTimeout(edgeTimeoutRef.current);
+      edgeTimeoutRef.current = null;
+    }
+    isWaitingAtEndRef.current = false;
   };
 
   // Smart Resume helper (waits after touch/inertia ends before resuming)
@@ -44,6 +49,17 @@ export default function SpeakersMarquee() {
       clearTimeout(resumeTimeoutRef.current);
     }
     resumeTimeoutRef.current = setTimeout(() => {
+      if (scrollRef.current) {
+        const container = scrollRef.current;
+        const currentScroll = Math.abs(container.scrollLeft);
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        if (currentScroll >= maxScroll - 10) {
+          directionRef.current = -1;
+        } else if (currentScroll <= 10) {
+          directionRef.current = 1;
+        }
+      }
+      isWaitingAtEndRef.current = false;
       isInteractingRef.current = false;
     }, delay);
   };
@@ -66,27 +82,45 @@ export default function SpeakersMarquee() {
     return () => observer.disconnect();
   }, []);
 
-  // Butter-smooth 60-120fps auto-scroll engine
+  // Butter-smooth 60-120fps auto-scroll engine with gentle ping-pong (no duplicate items)
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
 
     let animId;
-    const speed = 0.75; // Optimal readable auto-scroll speed
+    const speed = 0.7; // Optimal readable auto-scroll speed
 
     const step = () => {
-      if (!isInteractingRef.current && isVisibleRef.current && container) {
-        const halfWidth = container.scrollWidth / 2;
+      if (!isInteractingRef.current && isVisibleRef.current && !isWaitingAtEndRef.current && container) {
+        const maxScroll = container.scrollWidth - container.clientWidth;
 
-        if (isAr) {
-          container.scrollLeft -= speed;
-          if (Math.abs(container.scrollLeft) >= halfWidth) {
-            container.scrollLeft = 0;
-          }
-        } else {
-          container.scrollLeft += speed;
-          if (container.scrollLeft >= halfWidth) {
-            container.scrollLeft = 0;
+        if (maxScroll > 2) {
+          const currentScroll = Math.abs(container.scrollLeft);
+
+          if (directionRef.current === 1) {
+            // Moving towards the end
+            if (currentScroll >= maxScroll - 2) {
+              isWaitingAtEndRef.current = true;
+              if (edgeTimeoutRef.current) clearTimeout(edgeTimeoutRef.current);
+              edgeTimeoutRef.current = setTimeout(() => {
+                directionRef.current = -1;
+                isWaitingAtEndRef.current = false;
+              }, 2200);
+            } else {
+              container.scrollLeft += (isAr ? -speed : speed);
+            }
+          } else {
+            // Moving back towards the start
+            if (currentScroll <= 2) {
+              isWaitingAtEndRef.current = true;
+              if (edgeTimeoutRef.current) clearTimeout(edgeTimeoutRef.current);
+              edgeTimeoutRef.current = setTimeout(() => {
+                directionRef.current = 1;
+                isWaitingAtEndRef.current = false;
+              }, 2200);
+            } else {
+              container.scrollLeft += (isAr ? speed : -speed);
+            }
           }
         }
       }
@@ -98,6 +132,7 @@ export default function SpeakersMarquee() {
     return () => {
       cancelAnimationFrame(animId);
       if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+      if (edgeTimeoutRef.current) clearTimeout(edgeTimeoutRef.current);
     };
   }, [isAr]);
 
@@ -141,8 +176,8 @@ export default function SpeakersMarquee() {
       {/* --- SMART TOUCH & AUTO-SCROLLING SPEAKERS TRACK --- */}
       <div className="relative w-full overflow-hidden py-2">
         {/* Left & Right Gradient Shadows for seamless fade effect */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 sm:w-24 lg:w-36 bg-gradient-to-r from-[#f8fbf9] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 sm:w-24 lg:w-36 bg-gradient-to-l from-[#f8fbf9] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-4 sm:w-8 bg-gradient-to-r from-[#f8fbf9] to-transparent opacity-60" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-4 sm:w-8 bg-gradient-to-l from-[#f8fbf9] to-transparent opacity-60" />
 
         <div
           ref={scrollRef}
@@ -188,9 +223,9 @@ export default function SpeakersMarquee() {
             }
           }}
         >
-          {marqueeItems.map((speaker, idx) => (
+          {speakersList.map((speaker) => (
             <div
-              key={`${speaker.id}-${idx}`}
+              key={speaker.id}
               className="w-[230px] sm:w-[270px] shrink-0"
               onClick={() => handleSpeakerClick(speaker)}
             >

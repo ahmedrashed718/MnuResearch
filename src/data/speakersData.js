@@ -6,6 +6,8 @@ import mahmoudAvatar from '../assets/images/speakers/mahmoud-bassiony-avatar.jpg
 import mahmoudPoster from '../assets/images/speakers/mahmoud-bassiony.jpg';
 import rahmaAvatar from '../assets/images/speakers/rahma-elmansy-avatar.jpg';
 import rahmaPoster from '../assets/images/speakers/rahma-elmansy.jpg';
+import yahiaAvatar from '../assets/images/speakers/yahia-hesham-avatar.jpg';
+import yahiaPoster from '../assets/images/speakers/yahia-hesham.jpg';
 
 export const speakerCategories = [
   { id: 'all', labelAr: 'جميع المتحدثين', labelEn: 'All Speakers' },
@@ -69,8 +71,8 @@ export const dummySpeakers = [
     poster: mahmoudPoster,
     badgeAr: 'ضيف شرف ومتحدث',
     badgeEn: 'Honorable Guest & Speaker',
-    bioAr: '• طبيب بشري مصري مرخص ومسؤول التعلم والتطوير بمجموعة أندلسية للخدمات الطبية (Licensed Egyptian physician and the Learning & Development Lead at Andalusia Health)\n• باحث إكلينيكي نشط (Active clinical researcher)\n• مستشار أكاديمي (Academic consultant)',
-    bioEn: '• Licensed Egyptian physician and the Learning & Development Lead at Andalusia Health\n• Active clinical researcher\n• Academic consultant',
+    bioAr: '• طبيب بشري مصري مرخص ومسؤول التعلم والتطوير بمجموعة أندلسية للخدمات الطبية (Licensed Egyptian physician and the Learning & Development Lead at Andalusia Health)\n• باحث إكلينيكي نشط (Active clinical researcher)\n• نشر أبحاث في مجلات دولية (Publishing research in international journals)',
+    bioEn: '• Licensed Egyptian physician and the Learning & Development Lead at Andalusia Health\n• Active clinical researcher\n• Publishing research in international journals',
     sessionTimeAr: '04 أكتوبر 2026',
     sessionTimeEn: '04 Oct 2026',
     hallAr: 'القاعة الرئيسية للمؤتمر',
@@ -92,6 +94,27 @@ export const dummySpeakers = [
     badgeEn: 'Keynote Speaker & Founder',
     bioAr: '• طالبة بالفرقة الثالثة دكتور صيدلي (Third-Year PharmD Student)\n• مهتمة بتحويل الأفكار إلى مشاريع واقعية (Interested in turning ideas into projects)\n• مؤسسة ومالكة العلامة التجارية Rou Care للعناية الشخصية (Founder & Owner of Rou Care, a personal care brand)',
     bioEn: '• Third-Year PharmD Student\n• Interested in turning ideas into projects\n• Founder & Owner of Rou Care, a personal care brand',
+    sessionTimeAr: '04 أكتوبر 2026',
+    sessionTimeEn: '04 Oct 2026',
+    hallAr: 'القاعة الرئيسية للمؤتمر',
+    hallEn: 'Main Conference Hall',
+  },
+  {
+    id: 5,
+    category: 'medicine',
+    isKeynote: true,
+    nameAr: 'د. يحيى هشام',
+    nameEn: 'Dr. Yahia Hesham',
+    titleAr: 'طالب بالفرقة الثالثة بكلية الطب وباحث دولي',
+    titleEn: '3rd Year Medical Student & International Researcher',
+    institutionAr: 'جامعة المنوفية الأهلية',
+    institutionEn: 'Menoufia National University',
+    image: yahiaAvatar,
+    poster: yahiaPoster,
+    badgeAr: 'متحدث رئيسي',
+    badgeEn: 'Keynote Speaker',
+    bioAr: '• طالب بالفرقة الثالثة بكلية الطب البشري (3rd year medical student)\n• باحث دولي (International Researcher)\n• نائب رئيس اللجنة العلمية - أسرة جينيسيس (Vice Head of the Scientific Committee – Genesis Family)',
+    bioEn: '• 3rd year medical student\n• International Researcher\n• Vice Head of the Scientific Committee – Genesis Family',
     sessionTimeAr: '04 أكتوبر 2026',
     sessionTimeEn: '04 Oct 2026',
     hallAr: 'القاعة الرئيسية للمؤتمر',

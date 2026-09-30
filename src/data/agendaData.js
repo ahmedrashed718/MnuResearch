@@ -2,6 +2,7 @@ import fatmaAvatar from '../assets/images/speakers/fatma-osama-avatar.jpg';
 import basmaAvatar from '../assets/images/speakers/basma-mohammed-avatar.jpg';
 import mahmoudAvatar from '../assets/images/speakers/mahmoud-bassiony-avatar.jpg';
 import rahmaAvatar from '../assets/images/speakers/rahma-elmansy-avatar.jpg';
+import yahiaAvatar from '../assets/images/speakers/yahia-hesham-avatar.jpg';
 
 export const agendaData = [
   {
@@ -141,7 +142,7 @@ export const agendaData = [
           {
             nameEn: 'Dr/ Yahia Hesham',
             nameAr: 'د. يحيى هشام',
-            avatar: null,
+            avatar: yahiaAvatar,
           },
         ],
       },
