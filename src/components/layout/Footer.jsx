@@ -80,14 +80,26 @@ function Footer() {
           </div>
 
           {/* Compact Mobile Bottom Bar */}
-          <div className="pt-3 border-t border-amber-500/20 flex items-center justify-between gap-3 text-[11px] font-semibold text-amber-100/70">
-            <p className="text-start">
-              &copy; {new Date().getFullYear()} <span className="text-amber-400 font-bold">{t('universityName')}</span>
+          <div className="pt-4 border-t border-amber-500/25 flex flex-col items-center gap-2.5 text-center text-xs font-semibold text-amber-100/90">
+            <p className="leading-relaxed">
+              {isAr ? (
+                <>
+                  <span>جميع الحقوق محفوظة © 2026</span>{' '}
+                  <span className="text-amber-400 font-black">وحدة تكنولوجيا المعلومات</span>{' '}
+                  <span>- جامعة المنوفية الأهلية</span>
+                </>
+              ) : (
+                <>
+                  <span>All rights reserved © 2026</span>{' '}
+                  <span className="text-amber-400 font-black">Information Technology Unit</span>{' '}
+                  <span>- Menoufia National University</span>
+                </>
+              )}
             </p>
             <button
               type="button"
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/20 px-3 py-1 text-[11px] font-black text-amber-300 active:scale-95 transition-transform"
+              className="inline-flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/20 px-3.5 py-1 text-xs font-black text-amber-300 active:scale-95 transition-transform"
             >
               <span>{isAr ? 'الأعلى' : 'Top'}</span>
               <ArrowUp className="size-3" />
@@ -221,9 +233,21 @@ function Footer() {
           </div>
 
           {/* Desktop Bottom Bar */}
-          <div className="pt-6 border-t border-amber-500/20 flex items-center justify-between gap-4 text-xs font-semibold text-amber-100/70">
-            <p>
-              &copy; {new Date().getFullYear()} <span className="text-amber-400 font-bold">{t('universityName')}</span>. {isAr ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}
+          <div className="pt-6 border-t border-amber-500/25 flex items-center justify-between gap-4 text-xs font-semibold text-amber-100/90">
+            <p className="text-sm font-bold text-amber-100/95 tracking-wide">
+              {isAr ? (
+                <>
+                  <span>جميع الحقوق محفوظة © 2026</span>{' '}
+                  <span className="text-amber-400 font-black">وحدة تكنولوجيا المعلومات</span>{' '}
+                  <span>- جامعة المنوفية الأهلية</span>
+                </>
+              ) : (
+                <>
+                  <span>All rights reserved © 2026</span>{' '}
+                  <span className="text-amber-400 font-black">Information Technology Unit</span>{' '}
+                  <span>- Menoufia National University</span>
+                </>
+              )}
             </p>
 
             <div className="flex items-center gap-4">

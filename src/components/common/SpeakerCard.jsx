@@ -14,10 +14,9 @@ function SpeakerCard({ speaker, onSelect }) {
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      whileHover={{ y: -6 }}
       transition={{ duration: 0.25 }}
       onClick={() => onSelect && onSelect(speaker)}
-      className="group relative flex cursor-pointer flex-col items-center justify-center overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-6 text-center shadow-xs transition-all duration-300 hover:border-gold-500/50 hover:shadow-xl hover:shadow-brand-950/10"
+      className="group relative flex cursor-pointer flex-col items-center justify-center overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-6 text-center shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-500/50 hover:shadow-xl hover:shadow-brand-950/10"
     >
       {/* Top Accent Line */}
       <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-800 via-gold-400 to-emerald-700" />

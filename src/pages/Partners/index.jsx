@@ -134,15 +134,24 @@ export default function Partners() {
                       />
                     </div>
 
-                    <a
-                      href={partner.website}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex size-9 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-400 group-hover:bg-gold-50 group-hover:text-gold-600 transition-colors"
-                      title={name}
-                    >
-                      <Globe2 className="size-4" />
-                    </a>
+                    {partner.website && partner.website !== '#' ? (
+                      <a
+                        href={partner.website}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex size-9 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-400 group-hover:bg-gold-50 group-hover:text-gold-600 transition-colors"
+                        title={name}
+                      >
+                        <Globe2 className="size-4" />
+                      </a>
+                    ) : (
+                      <div
+                        className="flex size-9 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-400"
+                        title={name}
+                      >
+                        <Globe2 className="size-4" />
+                      </div>
+                    )}
                   </div>
 
                   <div className="mt-4">
@@ -159,15 +168,21 @@ export default function Partners() {
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <a
-                    href={partner.website}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 text-xs font-black text-brand-700 hover:text-brand-900 transition-colors"
-                  >
-                    <span>{isAr ? 'زيارة الموقع الرسمي' : 'Official Website'}</span>
-                    <ExternalLink className="size-3.5" />
-                  </a>
+                  {partner.website && partner.website !== '#' ? (
+                    <a
+                      href={partner.website}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-xs font-black text-brand-700 hover:text-brand-900 transition-colors"
+                    >
+                      <span>{isAr ? 'زيارة الموقع الرسمي' : 'Official Website'}</span>
+                      <ExternalLink className="size-3.5" />
+                    </a>
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500">
+                      <span>{isAr ? 'شريك وراعي معتمد' : 'Verified Partner'}</span>
+                    </span>
+                  )}
                   <span className="text-[11px] font-bold text-slate-400">
                     {isAr ? 'راعي رسمي' : 'Official Sponsor'}
                   </span>

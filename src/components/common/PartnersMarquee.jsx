@@ -130,6 +130,32 @@ export default function PartnersMarquee() {
     };
   }, [isAr]);
 
+  // Smart Wheel Listener: Vertical wheel scrolls page naturally, Horizontal wheel scrolls cards
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const onWheel = (e) => {
+      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey;
+
+      if (isHorizontal) {
+        // Horizontal scroll: scroll between the cards
+        e.preventDefault();
+        pauseAutoScroll();
+        const delta = Math.abs(e.deltaX) > 0 ? e.deltaX : e.deltaY;
+        container.scrollLeft += (isAr ? -delta : delta);
+        scheduleResume(2000);
+      }
+      // Vertical scroll: do NOT call preventDefault!
+      // The browser natively and smoothly scrolls the main page up and down.
+    };
+
+    container.addEventListener('wheel', onWheel, { passive: false });
+    return () => {
+      container.removeEventListener('wheel', onWheel);
+    };
+  }, [isAr]);
+
   return (
     <section
       ref={sectionRef}
@@ -170,10 +196,10 @@ export default function PartnersMarquee() {
 
         <div
           ref={scrollRef}
-          className="flex w-full overflow-x-auto scrollbar-none gap-5 sm:gap-6 px-4 sm:px-6 lg:px-8 py-2 touch-pan-x cursor-grab active:cursor-grabbing"
+          className="flex w-full overflow-x-auto overflow-y-hidden scrollbar-none gap-5 sm:gap-6 px-4 sm:px-6 lg:px-8 py-2 cursor-grab active:cursor-grabbing select-none"
           style={{
             WebkitOverflowScrolling: 'touch',
-            overscrollBehaviorX: 'contain',
+            touchAction: 'pan-x pan-y',
           }}
           // Mouse interaction (Desktop)
           onMouseEnter={pauseAutoScroll}
@@ -217,16 +243,25 @@ export default function PartnersMarquee() {
                       />
                     </div>
 
-                    <a
-                      href={partner.website}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex size-9 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-400 group-hover:bg-gold-50 group-hover:text-gold-600 transition-colors"
-                      title={name}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <Globe2 className="size-4" />
-                    </a>
+                    {partner.website && partner.website !== '#' ? (
+                      <a
+                        href={partner.website}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex size-9 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-400 group-hover:bg-gold-50 group-hover:text-gold-600 transition-colors"
+                        title={name}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Globe2 className="size-4" />
+                      </a>
+                    ) : (
+                      <div
+                        className="flex size-9 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-400"
+                        title={name}
+                      >
+                        <Globe2 className="size-4" />
+                      </div>
+                    )}
                   </div>
 
                   {/* Partner Name & Category */}
@@ -244,16 +279,22 @@ export default function PartnersMarquee() {
                 </div>
 
                 <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between">
-                  <a
-                    href={partner.website}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 text-xs font-black text-brand-700 hover:text-brand-950 transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <span>{isAr ? 'الموقع الرسمي' : 'Official Website'}</span>
-                    <ArrowRight className="size-3.5 rtl:rotate-180 text-amber-600" />
-                  </a>
+                  {partner.website && partner.website !== '#' ? (
+                    <a
+                      href={partner.website}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-xs font-black text-brand-700 hover:text-brand-950 transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <span>{isAr ? 'الموقع الرسمي' : 'Official Website'}</span>
+                      <ArrowRight className="size-3.5 rtl:rotate-180 text-amber-600" />
+                    </a>
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500">
+                      <span>{isAr ? 'شريك وراعي معتمد' : 'Verified Partner'}</span>
+                    </span>
+                  )}
                   <span className="text-[11px] font-bold text-slate-400">
                     {isAr ? 'راعي رسمي' : 'Official Sponsor'}
                   </span>

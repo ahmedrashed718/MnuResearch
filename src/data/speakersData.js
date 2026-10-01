@@ -8,10 +8,121 @@ import rahmaAvatar from '../assets/images/speakers/rahma-elmansy-avatar.jpg';
 import rahmaPoster from '../assets/images/speakers/rahma-elmansy.jpg';
 import yahiaAvatar from '../assets/images/speakers/yahia-hesham-avatar.jpg';
 import yahiaPoster from '../assets/images/speakers/yahia-hesham.jpg';
+import ahmedElKasedAvatar from '../assets/images/speakers/ahmed-el-kased-avatar.jpg';
+import ahmedElKasedPoster from '../assets/images/speakers/ahmed-el-kased.jpg';
+import nancyAsaadAvatar from '../assets/images/speakers/nancy-asaad-avatar.jpg';
+import nancyAsaadPoster from '../assets/images/speakers/nancy-asaad.jpg';
+import ibrahimHashemAvatar from '../assets/images/speakers/ibrahim-hashem-avatar.jpg';
+import ibrahimHashemPoster from '../assets/images/speakers/ibrahim-hashem.jpg';
+import ashrafBalbaaAvatar from '../assets/images/speakers/ashraf-balbaa-avatar.jpg';
+import ashrafBalbaaPoster from '../assets/images/speakers/ashraf-balbaa.jpg';
+import ahmedHamdanAvatar from '../assets/images/speakers/ahmed-hamdan-avatar.jpg';
+import ahmedHamdanPoster from '../assets/images/speakers/ahmed-hamdan.jpg';
+import hayamAyyadAvatar from '../assets/images/speakers/hayam-ayyad-avatar.jpg';
+import hayamAyyadPoster from '../assets/images/speakers/hayam-ayyad.jpg';
 
 export const speakerCategories = [
   { id: 'all', labelAr: 'جميع المتحدثين', labelEn: 'All Speakers' },
   { id: 'medicine', labelAr: 'العلوم الطبية والصيدلية', labelEn: 'Medicine & Healthcare' },
+];
+
+export const honorGuests = [
+  {
+    id: 'guest-1',
+    isHonorGuest: true,
+    nameAr: 'أ.د. أحمد فرج القاصد',
+    nameEn: 'Prof. Dr. Ahmed Farag El-Kased',
+    titleAr: 'رئيس جامعة المنوفية',
+    titleEn: 'President of Menoufia University',
+    roleAr: 'ضيف شرف المؤتمر',
+    roleEn: 'Conference Guest of Honor',
+    institutionAr: 'جامعة المنوفية',
+    institutionEn: 'Menoufia University',
+    image: ahmedElKasedAvatar,
+    poster: ahmedElKasedPoster,
+    badgeAr: 'ضيف شرف المؤتمر',
+    badgeEn: 'Guest of Honor',
+  },
+  {
+    id: 'guest-2',
+    isHonorGuest: true,
+    nameAr: 'أ.د. نانسي أسعد',
+    nameEn: 'Prof. Dr. Nancy Asaad',
+    titleAr: 'نائب رئيس الجامعة',
+    titleEn: 'Vice President of the University',
+    roleAr: 'ضيف شرف المؤتمر',
+    roleEn: 'Conference Guest of Honor',
+    institutionAr: 'جامعة المنوفية',
+    institutionEn: 'Menoufia University',
+    image: nancyAsaadAvatar,
+    poster: nancyAsaadPoster,
+    badgeAr: 'ضيف شرف المؤتمر',
+    badgeEn: 'Guest of Honor',
+  },
+  {
+    id: 'guest-3',
+    isHonorGuest: true,
+    nameAr: 'أ.د. إبراهيم هاشم',
+    nameEn: 'Prof. Dr. Ibrahim Hashem',
+    titleAr: 'عميد القطاع الهندسي',
+    titleEn: 'Dean of the Engineering Sector',
+    roleAr: 'ضيف شرف المؤتمر',
+    roleEn: 'Conference Guest of Honor',
+    institutionAr: 'جامعة المنوفية الأهلية',
+    institutionEn: 'Menoufia National University',
+    image: ibrahimHashemAvatar,
+    poster: ibrahimHashemPoster,
+    badgeAr: 'ضيف شرف المؤتمر',
+    badgeEn: 'Guest of Honor',
+  },
+  {
+    id: 'guest-4',
+    isHonorGuest: true,
+    nameAr: 'أ.د. أشرف بلبع',
+    nameEn: 'Prof. Dr. Ashraf Balbaa',
+    titleAr: 'عميد القطاع الطبي',
+    titleEn: 'Dean of the Medical Sector',
+    roleAr: 'ضيف شرف المؤتمر',
+    roleEn: 'Conference Guest of Honor',
+    institutionAr: 'جامعة المنوفية الأهلية',
+    institutionEn: 'Menoufia National University',
+    image: ashrafBalbaaAvatar,
+    poster: ashrafBalbaaPoster,
+    badgeAr: 'ضيف شرف المؤتمر',
+    badgeEn: 'Guest of Honor',
+  },
+  {
+    id: 'guest-5',
+    isHonorGuest: true,
+    nameAr: 'د. أحمد محمود حمدان',
+    nameEn: 'Dr. Ahmed Mahmoud Hamdan',
+    titleAr: 'مدير برنامج الطب والجراحة',
+    titleEn: 'Director of Medicine & Surgery Program',
+    roleAr: 'ضيف شرف المؤتمر',
+    roleEn: 'Conference Guest of Honor',
+    institutionAr: 'جامعة المنوفية الأهلية',
+    institutionEn: 'Menoufia National University',
+    image: ahmedHamdanAvatar,
+    poster: ahmedHamdanPoster,
+    badgeAr: 'ضيف شرف المؤتمر',
+    badgeEn: 'Guest of Honor',
+  },
+  {
+    id: 'guest-6',
+    isHonorGuest: true,
+    nameAr: 'د. هيام عبد السميع عياد',
+    nameEn: 'Dr. Hayam Abdel-Samie Ayyad',
+    titleAr: 'مدير برنامج تكنولوجيا العلوم الصحية التطبيقية',
+    titleEn: 'Director of Applied Health Sciences Technology Program',
+    roleAr: 'ضيف شرف المؤتمر',
+    roleEn: 'Conference Guest of Honor',
+    institutionAr: 'جامعة المنوفية الأهلية',
+    institutionEn: 'Menoufia National University',
+    image: hayamAyyadAvatar,
+    poster: hayamAyyadPoster,
+    badgeAr: 'ضيف شرف المؤتمر',
+    badgeEn: 'Guest of Honor',
+  },
 ];
 
 export const dummySpeakers = [

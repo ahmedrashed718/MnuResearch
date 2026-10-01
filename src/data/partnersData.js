@@ -1,6 +1,7 @@
 import redbullLogo from '../assets/logos/redbull.svg';
 import kelloggsNoodlesLogo from '../assets/logos/kelloggs-noodles.svg';
 import bedoLogo from '../assets/logos/bedo.png';
+import ebdaaLogo from '../assets/logos/ebdaa.png';
 
 export const dummyPartners = [
   {
@@ -36,4 +37,16 @@ export const dummyPartners = [
     descriptionAr: 'الراعي التكنولوجي الرائد في تصنيع الحلول والمعدات التعليمية، ومحاكيات الهندسة والتكنولوجيا، ودعم المعامل ومشاريع الطلاب الابتكارية.',
     descriptionEn: 'Leading technological provider of educational equipment, engineering simulators, and advanced laboratory solutions supporting STEM student projects.',
   },
+  {
+    id: 4,
+    nameAr: 'مكتبة إبداع',
+    nameEn: 'Ebdaa Library & Student Services',
+    categoryAr: 'الخدمات الطلابية والطباعة والنشر الأكاديمي',
+    categoryEn: 'Student Services, Printing & Academic Publishing',
+    logo: ebdaaLogo,
+    website: '#',
+    descriptionAr: 'راعي الخدمات الطلابية والطباعة، وتقديم كافة خدمات التصوير، التجليد، والطباعة والنشر الأكاديمي لطلاب وباحثي جامعة المنوفية الأهلية.',
+    descriptionEn: 'Official student services & printing sponsor, providing academic printing, copying, publishing, and university support services for MNU students.',
+  },
 ];
+

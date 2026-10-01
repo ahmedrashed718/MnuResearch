@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Users } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import Container from '../../components/ui/Container';
-import SpeakerCard from '../../components/common/SpeakerCard';
+import HonorGuestsMarquee from '../../components/common/HonorGuestsMarquee';
+import SpeakersTrack from '../../components/common/SpeakersTrack';
 import SpeakerModal from '../../components/common/SpeakerModal';
-import { dummySpeakers } from '../../data/speakersData';
+import { dummySpeakers, honorGuests } from '../../data/speakersData';
 import { useTranslation } from '../../hooks/useTranslation';
 
 // Official University Logo
@@ -109,32 +110,21 @@ export default function Speakers() {
       </section>
 
       {/* Main Content Area */}
-      <Container className="mt-6">
-        {/* Unified Speakers Section */}
-        <section>
-          <div className="flex items-center justify-between gap-4 mb-6 pb-2 border-b border-slate-200/60">
-            <h2 className="text-lg sm:text-xl font-black text-brand-950 flex items-center gap-2.5">
-              <Users className="size-5 text-amber-600" />
-              <span>{isAr ? 'قائمة المتحدثين' : 'Conference Speakers'}</span>
-              <span className="rounded-full bg-brand-100 px-3 py-0.5 text-xs font-extrabold text-brand-800">
-                {dummySpeakers.length}
-              </span>
-            </h2>
-          </div>
+      <Container className="mt-8 space-y-12 sm:space-y-14">
+        
+        {/* --- SECTION 1: GUESTS OF HONOR HORIZONTAL MARQUEE (شريط ضيوف الشرف الأفقي) --- */}
+        {honorGuests && honorGuests.length > 0 && (
+          <HonorGuestsMarquee guests={honorGuests} />
+        )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {dummySpeakers.map((speaker) => (
-              <SpeakerCard
-                key={speaker.id}
-                speaker={speaker}
-                onSelect={setSelectedSpeaker}
-              />
-            ))}
-          </div>
-        </section>
+        {/* --- SECTION 2: SPEAKERS HORIZONTAL TRACK (شريط المتحدثين الأفقي) --- */}
+        <SpeakersTrack
+          speakers={dummySpeakers}
+          onSelect={setSelectedSpeaker}
+        />
       </Container>
 
-      {/* Speaker Detail Modal */}
+      {/* Speaker / Guest Detail Modal */}
       <SpeakerModal
         speaker={selectedSpeaker}
         onClose={() => setSelectedSpeaker(null)}

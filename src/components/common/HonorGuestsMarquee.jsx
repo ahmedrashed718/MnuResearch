@@ -1,14 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { dummySpeakers } from '../../data/speakersData';
+import { Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from '../../hooks/useTranslation';
-import Container from '../ui/Container';
-import SpeakerCard from './SpeakerCard';
-import SpeakerModal from './SpeakerModal';
+import HonorGuestCard from './HonorGuestCard';
 
-export default function SpeakersMarquee() {
-  const { language, t } = useTranslation();
+export default function HonorGuestsMarquee({ guests }) {
+  const { language } = useTranslation();
   const isAr = language === 'ar';
 
   const sectionRef = useRef(null);
@@ -16,18 +12,12 @@ export default function SpeakersMarquee() {
   const isInteractingRef = useRef(false);
   const resumeTimeoutRef = useRef(null);
   const isVisibleRef = useRef(true);
-  const hasDraggedRef = useRef(false);
   const touchStartPos = useRef({ x: 0, y: 0 });
 
   // Direction: 1 for forward, -1 for backward
   const directionRef = useRef(1);
   const isWaitingAtEndRef = useRef(false);
   const edgeTimeoutRef = useRef(null);
-
-  const [selectedSpeaker, setSelectedSpeaker] = useState(null);
-
-  // Each speaker appears once (no repetition)
-  const speakersList = dummySpeakers;
 
   // Pause helper
   const pauseAutoScroll = () => {
@@ -43,8 +33,8 @@ export default function SpeakersMarquee() {
     isWaitingAtEndRef.current = false;
   };
 
-  // Smart Resume helper (waits after touch/inertia ends before resuming)
-  const scheduleResume = (delay = 2200) => {
+  // Smart Resume helper
+  const scheduleResume = (delay = 2400) => {
     if (resumeTimeoutRef.current) {
       clearTimeout(resumeTimeoutRef.current);
     }
@@ -64,7 +54,17 @@ export default function SpeakersMarquee() {
     }, delay);
   };
 
-  // IntersectionObserver: Only animate when visible on screen to save mobile battery
+  // Manual scroll with buttons
+  const scrollManual = (offset) => {
+    pauseAutoScroll();
+    if (scrollRef.current) {
+      const scrollAmount = isAr ? -offset : offset;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+    scheduleResume(3000);
+  };
+
+  // IntersectionObserver: Only animate when visible on screen
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -82,13 +82,13 @@ export default function SpeakersMarquee() {
     return () => observer.disconnect();
   }, []);
 
-  // Butter-smooth 60-120fps auto-scroll engine with gentle ping-pong (no duplicate items)
+  // Smooth auto-scroll engine
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
 
     let animId;
-    const speed = 0.7; // Optimal readable auto-scroll speed
+    const speed = 0.65; // Gentle readable pace
 
     const step = () => {
       if (!isInteractingRef.current && isVisibleRef.current && !isWaitingAtEndRef.current && container) {
@@ -98,7 +98,7 @@ export default function SpeakersMarquee() {
           const currentScroll = Math.abs(container.scrollLeft);
 
           if (directionRef.current === 1) {
-            // Moving towards the end
+            // Forward
             if (currentScroll >= maxScroll - 2) {
               isWaitingAtEndRef.current = true;
               if (edgeTimeoutRef.current) clearTimeout(edgeTimeoutRef.current);
@@ -110,7 +110,7 @@ export default function SpeakersMarquee() {
               container.scrollLeft += (isAr ? -speed : speed);
             }
           } else {
-            // Moving back towards the start
+            // Backward
             if (currentScroll <= 2) {
               isWaitingAtEndRef.current = true;
               if (edgeTimeoutRef.current) clearTimeout(edgeTimeoutRef.current);
@@ -135,6 +135,33 @@ export default function SpeakersMarquee() {
       if (edgeTimeoutRef.current) clearTimeout(edgeTimeoutRef.current);
     };
   }, [isAr]);
+
+  // Mouse dragging state
+  const isMouseDownRef = useRef(false);
+  const mouseStartXRef = useRef(0);
+  const scrollStartXRef = useRef(0);
+
+  const handleMouseDown = (e) => {
+    isMouseDownRef.current = true;
+    mouseStartXRef.current = e.pageX - scrollRef.current.offsetLeft;
+    scrollStartXRef.current = scrollRef.current.scrollLeft;
+    pauseAutoScroll();
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isMouseDownRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - mouseStartXRef.current) * 1.3;
+    scrollRef.current.scrollLeft = scrollStartXRef.current - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    if (isMouseDownRef.current) {
+      isMouseDownRef.current = false;
+      scheduleResume(2000);
+    }
+  };
 
   // Smart Wheel Listener: Vertical wheel scrolls page naturally, Horizontal wheel scrolls cards
   useEffect(() => {
@@ -162,113 +189,84 @@ export default function SpeakersMarquee() {
     };
   }, [isAr]);
 
-  const handleSpeakerClick = (speaker) => {
-    if (!hasDraggedRef.current) {
-      setSelectedSpeaker(speaker);
-    }
-  };
+  if (!guests || guests.length === 0) return null;
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden bg-gradient-to-b from-[#f8fbf9] via-white to-[#f8fbf9] py-14 sm:py-20 border-t border-brand-900/5 select-none"
-    >
-      <Container className="mb-8 sm:mb-10">
-        {/* Section Header */}
-        <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/25 bg-amber-50/90 px-3.5 py-1.5 text-xs font-bold text-amber-800 shadow-xs backdrop-blur">
-              <Sparkles className="size-3.5 text-amber-600" />
-              <span>{t('home.speakersBadge')}</span>
-            </div>
-            <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-brand-950">
-              {t('home.speakersTitle')}
-            </h2>
-            <p className="mt-2 max-w-xl text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
-              {t('home.speakersSubtitle')}
-            </p>
+    <section ref={sectionRef} className="relative w-full">
+      {/* Section Header with Navigation Controls */}
+      <div className="flex items-center justify-between gap-4 mb-6 pb-2.5 border-b border-amber-300/50">
+        <h2 className="text-lg sm:text-xl font-black text-brand-950 flex items-center gap-2.5">
+          <div className="flex size-7 items-center justify-center rounded-lg bg-amber-500/15 border border-amber-400/40 text-amber-600">
+            <Award className="size-4" />
           </div>
+          <span>{isAr ? 'ضيوف شرف المؤتمر' : 'Guests of Honor'}</span>
+          <span className="rounded-full bg-amber-100/80 border border-amber-300/60 px-2.5 py-0.5 text-xs font-black text-amber-900">
+            {guests.length}
+          </span>
+        </h2>
 
-          <Link
-            to="/speakers"
-            className="group inline-flex items-center gap-2 text-xs sm:text-sm font-black text-brand-800 transition-colors hover:text-brand-950"
+        {/* Navigation Arrows for smooth manual sliding */}
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => scrollManual(-320)}
+            className="flex size-8 items-center justify-center rounded-full border border-amber-400/40 bg-white text-amber-800 shadow-2xs hover:bg-amber-500 hover:text-white transition-all active:scale-95"
+            aria-label="Previous Guest"
           >
-            <span>{t('home.viewAllSpeakers')}</span>
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1 text-amber-600" />
-          </Link>
+            {isAr ? <ChevronRight className="size-4" /> : <ChevronLeft className="size-4" />}
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollManual(320)}
+            className="flex size-8 items-center justify-center rounded-full border border-amber-400/40 bg-white text-amber-800 shadow-2xs hover:bg-amber-500 hover:text-white transition-all active:scale-95"
+            aria-label="Next Guest"
+          >
+            {isAr ? <ChevronLeft className="size-4" /> : <ChevronRight className="size-4" />}
+          </button>
         </div>
-      </Container>
+      </div>
 
-      {/* --- SMART TOUCH & AUTO-SCROLLING SPEAKERS TRACK --- */}
-      <div className="relative w-full overflow-hidden py-2">
-        {/* Left & Right Gradient Shadows for seamless fade effect */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-4 sm:w-8 bg-gradient-to-r from-[#f8fbf9] to-transparent opacity-60" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-4 sm:w-8 bg-gradient-to-l from-[#f8fbf9] to-transparent opacity-60" />
+      {/* Horizontal Scrolling Track Container */}
+      <div className="relative w-full overflow-hidden py-2 -mx-2 px-2">
+        {/* Soft Side Gradient Fades */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 sm:w-10 bg-gradient-to-r from-[#f8fbf9] to-transparent opacity-75" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 sm:w-10 bg-gradient-to-l from-[#f8fbf9] to-transparent opacity-75" />
 
         <div
           ref={scrollRef}
-          className="flex w-full overflow-x-auto overflow-y-hidden scrollbar-none gap-5 sm:gap-6 px-4 sm:px-6 lg:px-8 py-2 cursor-grab active:cursor-grabbing select-none"
+          className="flex w-full overflow-x-auto overflow-y-hidden scrollbar-none gap-5 sm:gap-6 py-3 px-2 sm:px-4 cursor-grab active:cursor-grabbing select-none"
           style={{
             WebkitOverflowScrolling: 'touch',
             touchAction: 'pan-x pan-y',
           }}
-          // Mouse interaction (Desktop)
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseLeave={() => {
+            handleMouseUpOrLeave();
+            scheduleResume(500);
+          }}
           onMouseEnter={pauseAutoScroll}
-          onMouseLeave={() => scheduleResume(400)}
-
-          // Smart Touch interaction (Mobile)
           onTouchStart={(e) => {
             pauseAutoScroll();
-            hasDraggedRef.current = false;
             if (e.touches && e.touches[0]) {
               touchStartPos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
             }
           }}
-          onTouchMove={(e) => {
-            pauseAutoScroll();
-            if (e.touches && e.touches[0]) {
-              const diffX = Math.abs(e.touches[0].clientX - touchStartPos.current.x);
-              const diffY = Math.abs(e.touches[0].clientY - touchStartPos.current.y);
-              if (diffX > 6 || diffY > 6) {
-                hasDraggedRef.current = true;
-              }
-            }
-          }}
-          onTouchEnd={() => {
-            scheduleResume(2200);
-            setTimeout(() => {
-              hasDraggedRef.current = false;
-            }, 150);
-          }}
+          onTouchMove={() => pauseAutoScroll()}
+          onTouchEnd={() => scheduleResume(2200)}
           onTouchCancel={() => scheduleResume(1500)}
-
-          // Detect momentum scroll settling on mobile
-          onScroll={() => {
-            if (isInteractingRef.current) {
-              scheduleResume(2000);
-            }
-          }}
         >
-          {speakersList.map((speaker) => (
+          {guests.map((guest) => (
             <div
-              key={speaker.id}
-              className="w-[230px] sm:w-[270px] shrink-0"
-              onClick={() => handleSpeakerClick(speaker)}
+              key={guest.id}
+              className="w-[280px] sm:w-[310px] md:w-[330px] shrink-0 select-none"
             >
-              <SpeakerCard
-                speaker={speaker}
-                onSelect={() => handleSpeakerClick(speaker)}
-              />
+              <HonorGuestCard guest={guest} />
             </div>
           ))}
         </div>
       </div>
-
-      {/* Speaker Detail Modal */}
-      <SpeakerModal
-        speaker={selectedSpeaker}
-        onClose={() => setSelectedSpeaker(null)}
-      />
     </section>
   );
 }

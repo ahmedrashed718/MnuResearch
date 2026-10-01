@@ -33,7 +33,7 @@ function SpeakerModal({ speaker, onClose }) {
       }
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-8 items-center">
-        {/* الصورة / البوستر الرسمي للمتحدث */}
+        {/* الصورة / البوستر الرسمي للمتحدث أو ضيف الشرف */}
         {displayImage && (
           <div className="md:col-span-5 lg:col-span-5 flex justify-center">
             <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-900/5 p-1.5 shadow-sm max-w-[280px] sm:max-w-[320px] md:max-w-none w-full flex justify-center">
@@ -49,7 +49,13 @@ function SpeakerModal({ speaker, onClose }) {
 
         {/* تفاصيل المتحدث: الاسم، التوصيف، والنبذة البسيطة */}
         <div className={`space-y-3.5 text-center md:text-start ${displayImage ? 'md:col-span-7 lg:col-span-7' : 'md:col-span-12'}`}>
-          <div className="space-y-1.5">
+          <div className="space-y-2">
+            {(isAr ? speaker.badgeAr : speaker.badgeEn) && (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 px-3 py-0.5 text-xs font-black text-amber-800">
+                {isAr ? speaker.badgeAr : speaker.badgeEn}
+              </span>
+            )}
+
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-brand-950 leading-tight">
               {name}
             </h3>
