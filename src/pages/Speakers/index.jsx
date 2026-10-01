@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import Container from '../../components/ui/Container';
+import ConferencePatronage from '../../components/common/ConferencePatronage';
 import HonorGuestsMarquee from '../../components/common/HonorGuestsMarquee';
 import SpeakersTrack from '../../components/common/SpeakersTrack';
 import SpeakerModal from '../../components/common/SpeakerModal';
-import { dummySpeakers, honorGuests } from '../../data/speakersData';
+import { dummySpeakers, honorGuests, conferencePatrons } from '../../data/speakersData';
 import { useTranslation } from '../../hooks/useTranslation';
 
 // Official University Logo
@@ -110,14 +111,19 @@ export default function Speakers() {
       </section>
 
       {/* Main Content Area */}
-      <Container className="mt-8 space-y-12 sm:space-y-14">
+      <Container className="mt-8 space-y-12 sm:space-y-16">
         
-        {/* --- SECTION 1: GUESTS OF HONOR HORIZONTAL MARQUEE (شريط ضيوف الشرف الأفقي) --- */}
+        {/* --- TIER 1: SUPREME CONFERENCE PATRONAGE (رعاية المؤتمر - أ.د. أحمد القاصد & أ.د. نانسي أسعد) --- */}
+        {conferencePatrons && conferencePatrons.length > 0 && (
+          <ConferencePatronage patrons={conferencePatrons} />
+        )}
+
+        {/* --- TIER 2: GUESTS OF HONOR HORIZONTAL MARQUEE (شريط ضيوف الشرف الأفقي) --- */}
         {honorGuests && honorGuests.length > 0 && (
           <HonorGuestsMarquee guests={honorGuests} />
         )}
 
-        {/* --- SECTION 2: SPEAKERS HORIZONTAL TRACK (شريط المتحدثين الأفقي) --- */}
+        {/* --- TIER 3: SPEAKERS HORIZONTAL TRACK (شريط المتحدثين الأفقي) --- */}
         <SpeakersTrack
           speakers={dummySpeakers}
           onSelect={setSelectedSpeaker}

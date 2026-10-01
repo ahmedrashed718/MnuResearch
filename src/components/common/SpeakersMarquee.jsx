@@ -173,9 +173,9 @@ export default function SpeakersMarquee() {
       ref={sectionRef}
       className="relative overflow-hidden bg-gradient-to-b from-[#f8fbf9] via-white to-[#f8fbf9] py-14 sm:py-20 border-t border-brand-900/5 select-none"
     >
-      <Container className="mb-8 sm:mb-10">
+      <Container>
         {/* Section Header */}
-        <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+        <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end mb-8 sm:mb-10">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/25 bg-amber-50/90 px-3.5 py-1.5 text-xs font-bold text-amber-800 shadow-xs backdrop-blur">
               <Sparkles className="size-3.5 text-amber-600" />
@@ -197,21 +197,20 @@ export default function SpeakersMarquee() {
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1 text-amber-600" />
           </Link>
         </div>
-      </Container>
 
-      {/* --- SMART TOUCH & AUTO-SCROLLING SPEAKERS TRACK --- */}
-      <div className="relative w-full overflow-hidden py-2">
-        {/* Left & Right Gradient Shadows for seamless fade effect */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-4 sm:w-8 bg-gradient-to-r from-[#f8fbf9] to-transparent opacity-60" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-4 sm:w-8 bg-gradient-to-l from-[#f8fbf9] to-transparent opacity-60" />
+        {/* --- SMART TOUCH & AUTO-SCROLLING SPEAKERS TRACK --- */}
+        <div className="relative w-full overflow-hidden py-2 -mx-2 px-2">
+          {/* Left & Right Gradient Shadows for seamless fade effect */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 sm:w-10 bg-gradient-to-r from-[#f8fbf9] to-transparent opacity-75" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 sm:w-10 bg-gradient-to-l from-[#f8fbf9] to-transparent opacity-75" />
 
-        <div
-          ref={scrollRef}
-          className="flex w-full overflow-x-auto overflow-y-hidden scrollbar-none gap-5 sm:gap-6 px-4 sm:px-6 lg:px-8 py-2 cursor-grab active:cursor-grabbing select-none"
-          style={{
-            WebkitOverflowScrolling: 'touch',
-            touchAction: 'pan-x pan-y',
-          }}
+          <div
+            ref={scrollRef}
+            className="flex w-full overflow-x-auto overflow-y-hidden scrollbar-none gap-5 sm:gap-6 py-3 px-2 sm:px-4 cursor-grab active:cursor-grabbing select-none"
+            style={{
+              WebkitOverflowScrolling: 'touch',
+              touchAction: 'pan-x pan-y',
+            }}
           // Mouse interaction (Desktop)
           onMouseEnter={pauseAutoScroll}
           onMouseLeave={() => scheduleResume(400)}
@@ -263,12 +262,13 @@ export default function SpeakersMarquee() {
           ))}
         </div>
       </div>
+    </Container>
 
-      {/* Speaker Detail Modal */}
-      <SpeakerModal
-        speaker={selectedSpeaker}
-        onClose={() => setSelectedSpeaker(null)}
-      />
+    {/* Speaker Detail Modal */}
+    <SpeakerModal
+      speaker={selectedSpeaker}
+      onClose={() => setSelectedSpeaker(null)}
+    />
     </section>
   );
 }
