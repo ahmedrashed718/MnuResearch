@@ -46,7 +46,7 @@ class ErrorBoundary extends Component {
 
   handleReset = () => {
     this.setState({ hasError: false, error: null });
-    window.location.assign('/');
+    window.location.assign(import.meta.env.BASE_URL || '/');
   };
 
   render() {

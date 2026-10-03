@@ -1,3 +1,5 @@
+const baseUrl = import.meta.env.BASE_URL || '/';
+
 export const conferenceVideosData = [
   {
     id: 'president-speech',
@@ -12,8 +14,8 @@ export const conferenceVideosData = [
     duration: 'كلمة افتتاحية',
     categoryAr: 'رئيس الجامعة',
     categoryEn: 'University President',
-    videoSrc: '/vid.mp4',
-    poster: '/video_cover_backdrop.jpg',
+    videoSrc: `${baseUrl}vid.mp4`,
+    poster: `${baseUrl}video_cover_backdrop.jpg`,
     youtubeId: '',
     tagAr: 'الافتتاح الرسمي',
     tagEn: 'Official Opening',
@@ -31,8 +33,8 @@ export const conferenceVideosData = [
     duration: 'كلمة عميد القطاع الطبي',
     categoryAr: 'القطاع الطبي',
     categoryEn: 'Medical Sector',
-    videoSrc: '/vid2.mp4',
-    poster: '/video_cover_backdrop.jpg',
+    videoSrc: `${baseUrl}vid2.mp4`,
+    poster: `${baseUrl}video_cover_backdrop.jpg`,
     youtubeId: '',
     tagAr: 'القطاع الطبي',
     tagEn: 'Medical Sector',
@@ -50,11 +52,12 @@ export const conferenceVideosData = [
     duration: 'كلمة عميد القطاع الهندسي',
     categoryAr: 'القطاع الهندسي',
     categoryEn: 'Engineering Sector',
-    videoSrc: '/vid3.mp4',
-    poster: '/video_cover_backdrop.jpg',
+    videoSrc: `${baseUrl}vid3.mp4`,
+    poster: `${baseUrl}video_cover_backdrop.jpg`,
     youtubeId: '',
     tagAr: 'القطاع الهندسي',
     tagEn: 'Engineering Sector',
   },
 ];
+
 

@@ -1,7 +1,7 @@
 import redbullLogo from '../assets/logos/redbull.svg';
-import kelloggsNoodlesLogo from '../assets/logos/kelloggs-noodles.svg';
 import bedoLogo from '../assets/logos/bedo.png';
 import ebdaaLogo from '../assets/logos/ebdaa.png';
+import aboSalemLogo from '../assets/logos/abo-salem.jpg';
 
 export const dummyPartners = [
   {
@@ -17,14 +17,16 @@ export const dummyPartners = [
   },
   {
     id: 2,
-    nameAr: 'كيلوجز نودلز',
-    nameEn: "Kellogg's Noodles",
-    categoryAr: 'الأغذية السريعة والضيافة الطلابية',
-    categoryEn: 'Food, Snacks & Student Hospitality',
-    logo: kelloggsNoodlesLogo,
-    website: 'https://www.kelloggs.com',
-    descriptionAr: 'الراعي الغذائي الرسمي للمؤتمر وتقديم الضيافة والأنشطة الترفيهية والهدايا لجميع الطلاب المشاركين والباحثين.',
-    descriptionEn: 'Official food & snack partner providing refreshment, interactive challenges, and student hospitality throughout the conference.',
+    nameAr: 'شركة أبو سالم للتوكيلات التجارية',
+    nameEn: 'Abo Salem Commercial Agencies',
+    categoryAr: 'الوكيل المعتمد لبن نجار المنوفيه والقليوبية',
+    categoryEn: 'Authorized Agent for Najjar Coffee (Menoufia & Qalyubia)',
+    logo: aboSalemLogo,
+    website: 'https://www.facebook.com/AlGowdaTrd/?locale=ar_AR',
+    websiteLabelAr: 'صفحة الفيسبوك',
+    websiteLabelEn: 'Facebook Page',
+    descriptionAr: 'الوكيل المعتمد لبن نجار المنوفيه والقليوبية، تقديم أرقى منتجات القهوة والضيافة المتميزة لرواد وباحثي المؤتمر الطلابي الأول.',
+    descriptionEn: 'Authorized agent for Najjar Coffee in Menoufia and Qalyubia, providing premium hospitality and coffee services for conference attendees.',
   },
   {
     id: 3,
@@ -49,4 +51,6 @@ export const dummyPartners = [
     descriptionEn: 'Official student services & printing sponsor, providing academic printing, copying, publishing, and university support services for MNU students.',
   },
 ];
+
+
 

@@ -175,7 +175,7 @@ export default function Partners() {
                       rel="noreferrer"
                       className="inline-flex items-center gap-2 text-xs font-black text-brand-700 hover:text-brand-900 transition-colors"
                     >
-                      <span>{isAr ? 'زيارة الموقع الرسمي' : 'Official Website'}</span>
+                      <span>{isAr ? (partner.websiteLabelAr || 'زيارة الموقع الرسمي') : (partner.websiteLabelEn || 'Official Website')}</span>
                       <ExternalLink className="size-3.5" />
                     </a>
                   ) : (

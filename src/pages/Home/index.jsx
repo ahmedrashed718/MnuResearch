@@ -112,7 +112,7 @@ function Home() {
             <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs font-bold text-brand-900">
               <div className="flex items-center gap-1.5 rounded-full border border-gold-500/20 bg-white/90 px-4 py-2 shadow-sm backdrop-blur">
                 <Calendar className="size-3.5 text-gold-600" />
-                <span>{language === 'ar' ? '4 أكتوبر 2026' : 'October 4, 2026'}</span>
+                <span>{language === 'ar' ? '3 و 4 أكتوبر 2026' : 'October 3-4, 2026'}</span>
               </div>
               <div className="flex items-center gap-1.5 rounded-full border border-gold-500/20 bg-white/90 px-4 py-2 shadow-sm backdrop-blur">
                 <MapPin className="size-3.5 text-gold-600" />
@@ -200,7 +200,7 @@ function Home() {
             <motion.div variants={fadeUp} transition={{ duration: 0.6 }} className="mt-5 flex items-center gap-3 text-xs font-bold text-brand-900">
               <div className="flex items-center gap-2 rounded-full border border-gold-500/25 bg-white/90 px-4 py-2 shadow-xs backdrop-blur">
                 <Calendar className="size-4 text-gold-600" />
-                <span>{language === 'ar' ? '4 أكتوبر 2026' : 'October 4, 2026'}</span>
+                <span>{language === 'ar' ? '3 و 4 أكتوبر 2026' : 'October 3-4, 2026'}</span>
               </div>
               <div className="flex items-center gap-2 rounded-full border border-gold-500/25 bg-white/90 px-4 py-2 shadow-xs backdrop-blur">
                 <MapPin className="size-4 text-gold-600" />

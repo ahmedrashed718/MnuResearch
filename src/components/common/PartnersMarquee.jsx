@@ -286,7 +286,7 @@ export default function PartnersMarquee() {
                       className="inline-flex items-center gap-2 text-xs font-black text-brand-700 hover:text-brand-950 transition-colors"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <span>{isAr ? 'الموقع الرسمي' : 'Official Website'}</span>
+                      <span>{isAr ? (partner.websiteLabelAr || 'الموقع الرسمي') : (partner.websiteLabelEn || 'Official Website')}</span>
                       <ArrowRight className="size-3.5 rtl:rotate-180 text-amber-600" />
                     </a>
                   ) : (

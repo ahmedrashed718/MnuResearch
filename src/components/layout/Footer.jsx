@@ -198,8 +198,8 @@ function Footer() {
                     <Calendar className="size-4 text-amber-400" />
                     <span>{isAr ? 'موعد المؤتمر' : 'Date'}</span>
                   </div>
-                  <p className="text-white font-bold">{isAr ? '4 أكتوبر 2026' : 'October 4, 2026'}</p>
-                  <p className="text-[11px] text-amber-100/70">{isAr ? 'انعقاد المؤتمر' : 'Conference Day'}</p>
+                  <p className="text-white font-bold">{isAr ? '3 و 4 أكتوبر 2026' : 'October 3-4, 2026'}</p>
+                  <p className="text-[11px] text-amber-100/70">{isAr ? 'انعقاد المؤتمر' : 'Conference Days'}</p>
                 </div>
 
                 {/* Venue Card */}

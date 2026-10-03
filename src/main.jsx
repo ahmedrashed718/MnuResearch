@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <LanguageProvider>
       <ErrorBoundary>
-        <BrowserRouter>
+        <BrowserRouter basename="/conference">
           <App />
         </BrowserRouter>
       </ErrorBoundary>

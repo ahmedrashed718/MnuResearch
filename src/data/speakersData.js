@@ -20,6 +20,8 @@ import ahmedHamdanAvatar from '../assets/images/speakers/ahmed-hamdan-avatar.jpg
 import ahmedHamdanPoster from '../assets/images/speakers/ahmed-hamdan.jpg';
 import hayamAyyadAvatar from '../assets/images/speakers/hayam-ayyad-avatar.jpg';
 import hayamAyyadPoster from '../assets/images/speakers/hayam-ayyad.jpg';
+import emanSweidAvatar from '../assets/images/speakers/eman-sweid-avatar.jpg';
+import emanSweidPoster from '../assets/images/speakers/eman-sweid.jpg';
 
 export const speakerCategories = [
   { id: 'all', labelAr: 'جميع المتحدثين', labelEn: 'All Speakers' },
@@ -125,6 +127,22 @@ export const honorGuests = [
     poster: hayamAyyadPoster,
     badgeAr: 'ضيف شرف المؤتمر',
     badgeEn: 'Guest of Honor',
+  },
+  {
+    id: 'guest-7',
+    isHonorGuest: true,
+    nameAr: 'د. إيمان سويد',
+    nameEn: 'Dr. Eman Sweed',
+    titleAr: 'منظمة المؤتمر',
+    titleEn: 'Conference Organizer',
+    roleAr: 'ضيف شرف المؤتمر • منظمة المؤتمر',
+    roleEn: 'Conference Guest of Honor • Conference Organizer',
+    institutionAr: 'جامعة المنوفية الأهلية',
+    institutionEn: 'Menoufia National University',
+    image: emanSweidAvatar,
+    poster: emanSweidPoster,
+    badgeAr: 'ضيف شرف • منظمة المؤتمر',
+    badgeEn: 'Guest of Honor • Organizer',
   },
 ];
 
