@@ -179,7 +179,7 @@ export default function VideoShowcase() {
 
         {/* --- DYNAMIC TABS (Automatically visible when multiple videos exist) --- */}
         {conferenceVideosData.length > 1 && (
-          <div className="flex flex-col sm:flex-row items-center justify-center p-1.5 mb-6 sm:mb-8 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md max-w-lg mx-auto gap-2">
+          <div className="flex flex-col sm:flex-row items-center justify-center p-1.5 mb-6 sm:mb-8 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md max-w-2xl mx-auto gap-2">
             {conferenceVideosData.map((video, idx) => {
               const isCurrent = video.id === activeVideo.id;
               const shortTitle = isAr ? video.shortTitleAr : video.shortTitleEn;
